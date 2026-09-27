@@ -537,7 +537,7 @@ Petals.init();
 
 $("#openBtn").addEventListener("click", openInvite);
 $("#musicBtn").addEventListener("click", () => Music.toggle());
-addEventListener("pointerdown", (e) => { if (document.body.classList.contains("opened")) burst(e.clientX, e.clientY); });
+addEventListener("click", (e) => { if (document.body.classList.contains("opened") && e.target.closest("a, button")) burst(e.clientX, e.clientY); });
 
 addEventListener("load", () => setTimeout(() => $("#loader").classList.add("done"), 1900));
 setTimeout(() => $("#loader").classList.add("done"), 5000); // safety
