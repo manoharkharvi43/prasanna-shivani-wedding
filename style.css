@@ -256,7 +256,7 @@ body.opened .music-btn { opacity: 1; transform: none; }
 .hero-names { font-family: var(--script); font-weight: 400; line-height: 1; margin: 10px 0 0; }
 .hero-names .name { display: block; font-size: clamp(64px, 11vw, 124px); color: var(--maroon); }
 .hero-names .amp { display: block; font-size: clamp(40px, 6vw, 64px); color: var(--gold); margin: -6px 0; }
-.split .ch { display: inline-block; will-change: transform, opacity; }
+.split .ch { display: inline-block; padding: .15em .25em; margin: -.15em -.25em; }
 .hero-date { font-family: var(--display); font-size: clamp(14px, 1.8vw, 18px); letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
 .hero-place { font-style: italic; color: var(--ink-soft); margin-top: 4px; }
 .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }

@@ -423,7 +423,8 @@ function heroIn() {
     .to(".hero-names .name:first-child .ch", { yPercent: 0, rotateX: 0, opacity: 1, duration: 1.1, stagger: 0.05 }, 0.5)
     .to(".hero-names .amp", { scale: 1, opacity: 1, duration: 0.9, ease: "back.out(2)" }, 0.95)
     .to(".hero-names .name:last-child .ch", { yPercent: 0, rotateX: 0, opacity: 1, duration: 1.1, stagger: 0.05 }, 1.05)
-    .to(".hero .divider, .hero .hero-date, .hero .hero-place, .hero .hero-ctas", { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, 1.5);
+    .to(".hero .divider, .hero .hero-date, .hero .hero-place, .hero .hero-ctas", { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, 1.5)
+    .add(() => gsap.set(".hero-names .ch, .hero-names .amp", { clearProps: "transform,opacity" }));
 }
 
 /* =========================================================
