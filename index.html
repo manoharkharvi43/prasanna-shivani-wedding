@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prasanna & Shivani — Wedding Invitation</title>
+  <meta name="description" content="With the blessings of our families, Prasanna & Shivani invite you to celebrate their wedding on 23 December 2026." />
+  <meta property="og:title" content="Prasanna & Shivani — Wedding Invitation" />
+  <meta property="og:description" content="Wednesday, 23 December 2026. Join us as our journey begins." />
+  <meta property="og:image" content="assets/couple.jpg" />
+  <meta name="theme-color" content="#5c0f1b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="locked">
+
+  <!-- ============ LOADER ============ -->
+  <div id="loader">
+    <div class="loader-mono">P <span>&amp;</span> S</div>
+    <div class="loader-line"><span></span></div>
+    <p class="loader-tag">And so, our journey begins…</p>
+  </div>
+
+  <!-- ============ 3D TEMPLE DOOR INTRO ============ -->
+  <section id="intro" aria-label="Invitation cover">
+    <div class="intro-glow"></div>
+    <div class="doors">
+      <div class="door door-left">
+        <div class="door-face">
+          <div class="door-panel"></div>
+          <div class="door-panel"></div>
+          <div class="door-panel small"></div>
+          <div class="door-knob"></div>
+        </div>
+      </div>
+      <div class="door door-right">
+        <div class="door-face">
+          <div class="door-panel"></div>
+          <div class="door-panel"></div>
+          <div class="door-panel small"></div>
+          <div class="door-knob"></div>
+        </div>
+      </div>
+    </div>
+    <div class="intro-card">
+      <div class="bells"><span class="bell"></span><span class="bell"></span></div>
+      <p class="sanskrit">॥ श्री गणेशाय नमः ॥</p>
+      <div class="mono-seal">
+        <svg viewBox="0 0 200 200" class="seal-ring" aria-hidden="true">
+          <defs>
+            <path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
+          </defs>
+          <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="1" />
+          <circle cx="100" cy="100" r="64" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 4" />
+          <text font-size="11" letter-spacing="4" fill="currentColor">
+            <textPath href="#circ">✦ SHUBH VIVAH ✦ 23 · 12 · 2026 ✦ SHUBH VIVAH ✦ 23 · 12 · 2026</textPath>
+          </text>
+        </svg>
+        <span class="seal-letters">P<i>&amp;</i>S</span>
+      </div>
+      <p class="intro-sub">You are cordially invited</p>
+      <h1 class="intro-names">Prasanna <span>&amp;</span> Shivani</h1>
+      <button id="openBtn" class="open-btn" aria-label="Open invitation">
+        <span>Open Invitation</span>
+      </button>
+      <p class="intro-hint">🎵 best experienced with sound</p>
+    </div>
+  </section>
+
+  <!-- ============ 3D PETAL CANVAS ============ -->
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- ============ NAV ============ -->
+  <header id="nav">
+    <a href="#home" class="nav-mono">P <span>&amp;</span> S</a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#couple">Couple</a>
+      <a href="#story">Story</a>
+      <a href="#events">Events</a>
+      <a href="#venue">Venue</a>
+      <a href="#blessings">Blessings</a>
+    </nav>
+    <button id="menuBtn" class="menu-btn" aria-label="Menu"><span></span><span></span></button>
+  </header>
+
+  <button id="musicBtn" class="music-btn" aria-label="Toggle music" title="Toggle music">
+    <span class="bars"><i></i><i></i><i></i><i></i></span>
+  </button>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section id="home" class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="kicker reveal">॥ With the blessings of our families ॥</p>
+          <p class="hero-small reveal">we are getting married</p>
+          <h2 class="hero-names">
+            <span class="name split">Prasanna</span>
+            <span class="amp">&amp;</span>
+            <span class="name split">Shivani</span>
+          </h2>
+          <div class="divider reveal"><span></span><em>❁</em><span></span></div>
+          <p class="hero-date reveal">Wednesday · 23 December 2026</p>
+          <p class="hero-place reveal" data-cfg="city"></p>
+          <div class="hero-ctas reveal">
+            <a href="#events" class="btn gold">View Celebrations</a>
+            <button class="btn ghost" id="calBtn">Save the Date</button>
+          </div>
+        </div>
+        <div class="hero-frame-wrap">
+          <div class="hero-frame tilt" data-tilt="10">
+            <div class="frame-arch">
+              <img src="assets/couple.jpg" alt="Prasanna and Shivani in traditional wedding attire" />
+              <div class="shine"></div>
+            </div>
+            <div class="frame-border"></div>
+            <div class="diya diya-l"><span class="flame"></span></div>
+            <div class="diya diya-r"><span class="flame"></span></div>
+          </div>
+        </div>
+      </div>
+      <a href="#countdown" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ============ COUNTDOWN ============ -->
+    <section id="countdown" class="section countdown">
+      <h3 class="section-title reveal">Counting Every Moment</h3>
+      <p class="section-sub reveal">until we say forever</p>
+      <div class="cd-grid">
+        <div class="cd-box reveal"><div class="cd-flip"><b id="cdD">000</b></div><span>Days</span></div>
+        <div class="cd-box reveal"><div class="cd-flip"><b id="cdH">00</b></div><span>Hours</span></div>
+        <div class="cd-box reveal"><div class="cd-flip"><b id="cdM">00</b></div><span>Minutes</span></div>
+        <div class="cd-box reveal"><div class="cd-flip"><b id="cdS">00</b></div><span>Seconds</span></div>
+      </div>
+      <p class="cd-done" id="cdDone" hidden>Our wedding has begun! ✨</p>
+    </section>
+
+    <!-- ============ COUPLE ============ -->
+    <section id="couple" class="section couple">
+      <h3 class="section-title reveal">The Couple</h3>
+      <p class="section-sub reveal">two hearts, one beautiful forever</p>
+      <div class="couple-grid">
+        <article class="person reveal-left">
+          <div class="person-photo tilt" data-tilt="14">
+            <div class="crop crop-groom"></div>
+            <div class="ring"></div>
+          </div>
+          <p class="role">The Groom</p>
+          <h4 class="person-name">Prasanna</h4>
+          <p class="person-parents" data-cfg="groomParents"></p>
+          <p class="quote">“Ready to begin a beautiful journey filled with love, laughter and endless memories.”</p>
+        </article>
+        <div class="couple-heart reveal">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 86 C18 64 6 46 12 30 C18 14 40 12 50 30 C60 12 82 14 88 30 C94 46 82 64 50 86Z" /></svg>
+          <span>weds</span>
+        </div>
+        <article class="person reveal-right">
+          <div class="person-photo tilt" data-tilt="14">
+            <div class="crop crop-bride"></div>
+            <div class="ring"></div>
+          </div>
+          <p class="role">The Bride</p>
+          <h4 class="person-name">Shivani</h4>
+          <p class="person-parents" data-cfg="brideParents"></p>
+          <p class="quote">“Dreaming of forever and grateful for every blessing that led to this moment.”</p>
+        </article>
+      </div>
+      <div class="rule-card reveal">
+        <p class="rule-small">No option left… I'm officially in the</p>
+        <p class="rule-big">“Whatever my Shivani says”</p>
+        <p class="rule-small">phase</p>
+        <p class="rule-foot">Relationship Rule #1 — She is always right 😄</p>
+      </div>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section id="story" class="section story">
+      <h3 class="section-title reveal">Our Journey</h3>
+      <p class="section-sub reveal">a few chapters before forever</p>
+      <div class="timeline" id="storyList"></div>
+    </section>
+
+    <!-- ============ EVENTS ============ -->
+    <section id="events" class="section events">
+      <h3 class="section-title reveal">Schedule of Events</h3>
+      <p class="section-sub reveal">we look forward to celebrating each precious moment with you</p>
+      <div class="event-grid" id="eventList"></div>
+    </section>
+
+    <!-- ============ VENUE ============ -->
+    <section id="venue" class="section venue">
+      <h3 class="section-title reveal">The Venue</h3>
+      <p class="section-sub reveal">where two families become one</p>
+      <div class="venue-card reveal">
+        <div class="venue-info">
+          <p class="venue-label">Muhurtham &amp; Reception</p>
+          <h4 data-cfg="venueName"></h4>
+          <p data-cfg="venueAddress"></p>
+          <a class="btn gold" id="mapBtn" target="_blank" rel="noopener">Get Directions 🗺️</a>
+        </div>
+        <div class="venue-map">
+          <iframe id="mapFrame" title="Venue map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INVITED BY ============ -->
+    <section class="section family">
+      <div class="family-card reveal">
+        <p class="sanskrit small">॥ शुभ विवाह ॥</p>
+        <p class="family-lead">With love and warm regards,</p>
+        <p class="family-label">Invited by</p>
+        <div class="family-cols">
+          <div><p class="family-name" data-cfg="groomParents"></p><p class="family-home" data-cfg="groomFamily"></p></div>
+          <div class="family-amp">&amp;</div>
+          <div><p class="family-name" data-cfg="brideParents"></p><p class="family-home" data-cfg="brideFamily"></p></div>
+        </div>
+        <p class="family-note">Together with our families, we eagerly await your gracious presence as we celebrate this joyous occasion and become one family.</p>
+      </div>
+    </section>
+
+    <!-- ============ BLESSINGS ============ -->
+    <section id="blessings" class="section blessings">
+      <h3 class="section-title reveal">Leave Your Blessings</h3>
+      <p class="section-sub reveal">a note for forever</p>
+      <form id="wishForm" class="wish-form reveal">
+        <input id="wishName" type="text" placeholder="Your name" maxlength="60" required />
+        <textarea id="wishMsg" placeholder="Your wishes for the couple…" maxlength="400" rows="4" required></textarea>
+        <div class="wish-actions">
+          <button type="submit" class="btn gold">Send Blessings 💌</button>
+        </div>
+        <p class="wish-hint">Opens WhatsApp so your wishes reach the couple directly.</p>
+      </form>
+      <div class="wish-wall" id="wishWall"></div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-mono">P <span>&amp;</span> S</div>
+      <p class="footer-quote">“Your presence and blessings are the only gifts we're hoping to unwrap.”</p>
+      <p class="hashtag">#PrasannaWedsShivani</p>
+      <p class="footer-date">23 · 12 · 2026</p>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
