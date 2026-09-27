@@ -35,6 +35,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const hasGSAP = !!window.gsap;
 const isMobile = matchMedia("(max-width: 768px)").matches;
+const slide = isMobile ? 24 : 80;
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const mapsLink = (q) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
@@ -395,10 +396,10 @@ function setupAnimations() {
     gsap.from(el, { y: 50, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } });
   });
   $$(".reveal-left, .reveal-right").forEach((el) => {
-    gsap.from(el, { x: el.classList.contains("reveal-left") ? -80 : 80, opacity: 0, rotateY: el.classList.contains("reveal-left") ? 20 : -20, duration: 1.3, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 82%" } });
+    gsap.from(el, { x: el.classList.contains("reveal-left") ? -slide : slide, opacity: 0, rotateY: el.classList.contains("reveal-left") ? 20 : -20, duration: 1.3, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 82%" } });
   });
   $$(".tl-item").forEach((el, i) => {
-    gsap.from(el, { x: i % 2 ? 60 : -60, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } });
+    gsap.from(el, { x: (i % 2 ? 1 : -1) * Math.min(60, slide), opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } });
     gsap.from(el.querySelector(".tl-dot"), { scale: 0, rotate: 180, duration: 0.8, ease: "back.out(2)", scrollTrigger: { trigger: el, start: "top 85%" } });
   });
   ScrollTrigger.batch(".event", {
