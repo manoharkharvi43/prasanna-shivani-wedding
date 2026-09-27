@@ -262,7 +262,7 @@ const Petals = {
     geo.computeVertexNormals();
     const mat = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, roughness: 0.55, metalness: 0.05 });
 
-    const N = isMobile ? 55 : 110;
+    const N = isMobile ? 24 : 45;
     const mesh = new THREE.InstancedMesh(geo, mat, N);
     const palette = [0xe8766e, 0xf19a8f, 0xf6b24a, 0xf08a24, 0xfff6e6, 0xfbe3e0, 0xd94e4e, 0xffd27a];
     const col = new THREE.Color();
@@ -292,7 +292,7 @@ const Petals = {
       o.boost = 0;
     };
     for (let i = 0; i < N; i++) {
-      const o = {}; spawn(o, false); o.y += halfH * 2; P.push(o); // start off-screen, falls in
+      const o = {}; spawn(o, true); o.done = true; P.push(o); // hidden until the one-time shower
       mesh.setColorAt(i, col.setHex(palette[i % palette.length]));
     }
     mesh.instanceColor.needsUpdate = true;
@@ -315,28 +315,25 @@ const Petals = {
 
     const mouse = { x: 0, y: 0 };
     addEventListener("pointermove", (e) => { mouse.x = e.clientX / innerWidth - 0.5; mouse.y = e.clientY / innerHeight - 0.5; });
-    let scrollV = 0, lastY = scrollY;
-    addEventListener("scroll", () => { scrollV += (scrollY - lastY) * 0.0015; lastY = scrollY; }, { passive: true });
-
-    this.density = 1;
-    this.shower = () => P.forEach((o, i) => { spawn(o, true); o.y += Math.random() * halfH * 2; o.boost = 0.06; });
+    // one shower when the invitation opens; petals are not respawned
+    this.shower = () => P.forEach((o) => { spawn(o, true); o.y += Math.random() * halfH * 1.5; o.boost = 0.04; o.done = false; });
 
     let t = 0;
     const loop = () => {
       requestAnimationFrame(loop);
       if (document.hidden) return;
       t += 0.016;
-      scrollV *= 0.9;
       for (let i = 0; i < N; i++) {
         const o = P[i];
+        if (o.done) { dummy.scale.setScalar(0); dummy.updateMatrix(); mesh.setMatrixAt(i, dummy.matrix); continue; }
         o.boost *= 0.985;
-        o.y -= o.vy + o.boost + scrollV;
+        o.y -= o.vy + o.boost;
         o.x += o.vx + Math.sin(t * 0.8 + o.ph) * 0.012;
         o.rx += o.sr[0]; o.ry += o.sr[1]; o.rz += o.sr[2];
-        if (o.y < -halfH - 2 || o.y > halfH + 8) spawn(o, true);
+        if (o.y < -halfH - 2) o.done = true;
         dummy.position.set(o.x, o.y, o.z);
         dummy.rotation.set(o.rx, o.ry, o.rz);
-        dummy.scale.setScalar(o.s * (i < N * this.density ? 1 : 0));
+        dummy.scale.setScalar(o.s);
         dummy.updateMatrix();
         mesh.setMatrixAt(i, dummy.matrix);
       }
@@ -374,7 +371,6 @@ function openInvite() {
     intro.classList.add("gone");
     if (hasGSAP) gsap.to(intro, { opacity: 0, duration: 1, onComplete: () => intro.remove() });
     else intro.remove();
-    Petals.density = isMobile ? 0.6 : 0.55; // calmer after the shower
   }, 2600);
 }
 
