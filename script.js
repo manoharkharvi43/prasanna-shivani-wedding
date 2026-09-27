@@ -316,7 +316,7 @@ const Petals = {
     const mouse = { x: 0, y: 0 };
     addEventListener("pointermove", (e) => { mouse.x = e.clientX / innerWidth - 0.5; mouse.y = e.clientY / innerHeight - 0.5; });
     // one shower when the invitation opens; petals are not respawned
-    this.shower = () => P.forEach((o) => { spawn(o, true); o.y += Math.random() * halfH * 1.5; o.boost = 0.04; o.done = false; });
+    this.shower = () => P.forEach((o) => { spawn(o, true); o.y += Math.random() * halfH; o.vy = 0.045 + Math.random() * 0.035; o.boost = 0.03; o.done = false; });
 
     let t = 0;
     const loop = () => {
