@@ -72,12 +72,12 @@ function sendWish(name, msg) {
   window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
 }
 
-// floating design switcher so the couple can compare /1 /2 /3
+// floating design switcher so the couple can compare /1 – /5
 function designSwitcher(current) {
   if (!CONFIG.showSwitcher) return;
   const nav = document.createElement("div");
   nav.setAttribute("style", "position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:999;display:flex;gap:2px;padding:4px;align-items:center;border-radius:999px;background:rgba(20,20,20,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font:500 12px/1 system-ui,sans-serif;letter-spacing:.04em;box-shadow:0 6px 20px rgba(0,0,0,.25)");
-  nav.innerHTML = `<span style="padding:8px 6px 8px 10px;color:#bbb">Design</span>` + [1, 2, 3].map((n) => `<a href="${CORE_BASE}${n}/" style="width:30px;height:30px;display:grid;place-items:center;border-radius:50%;text-decoration:none;color:${n === current ? "#111" : "#eee"};background:${n === current ? "#fff" : "transparent"}">${n}</a>`).join("");
+  nav.innerHTML = `<span style="padding:8px 6px 8px 10px;color:#bbb">Design</span>` + [1, 2, 3, 4, 5].map((n) => `<a href="${CORE_BASE}${n}/" style="width:30px;height:30px;display:grid;place-items:center;border-radius:50%;text-decoration:none;color:${n === current ? "#111" : "#eee"};background:${n === current ? "#fff" : "transparent"}">${n}</a>`).join("");
   document.body.appendChild(nav);
 }
 
