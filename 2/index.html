@@ -143,6 +143,51 @@
     .send:hover { background: var(--ink); color: var(--paper); }
     .thanks { font-style: italic; color: var(--accent); min-height: 1.6em; }
 
+    /* botanical line art that draws itself */
+    .sprig { width: 74px; height: auto; color: var(--accent); overflow: visible; }
+    .sprig path { fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: var(--len, 400); stroke-dashoffset: var(--len, 400); }
+    .sprig.on path { animation: draw 2.6s cubic-bezier(.6,0,.2,1) forwards; }
+    .sprig.on path:nth-child(n+2) { animation-delay: calc(.35s + var(--i, 0) * .12s); animation-duration: 1.4s; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .hero-sprig { position: absolute; width: 120px; opacity: .8; }
+    .hero-sprig.tl { left: -10px; top: 70px; transform: rotate(-8deg); }
+    .hero-sprig.br { right: 10px; bottom: 30px; transform: rotate(172deg); }
+
+    /* names rise through masks */
+    .line { display: block; overflow: hidden; padding: .06em .1em .12em; margin: -.06em -.1em -.12em; }
+    .line > span { display: block; transform: translateY(115%) rotate(4deg); transform-origin: left bottom; transition: transform 1.5s cubic-bezier(.2,.8,.2,1); }
+    body.opened .line > span { transform: none; }
+    body.opened .line:nth-child(2) > span { transition-delay: .18s; }
+    body.opened .line:nth-child(3) > span { transition-delay: .32s; }
+
+    /* marquee */
+    .marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; background: var(--paper); }
+    .track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+    .track span { font-weight: 300; font-size: clamp(34px, 5vw, 58px); line-height: 1; white-space: nowrap; padding-right: 48px; }
+    .track span:nth-child(even) { font-style: italic; color: transparent; -webkit-text-stroke: 1px var(--ink); }
+    .track i { color: var(--accent); font-style: normal; padding: 0 .4em; font-size: .6em; vertical-align: middle; }
+    .marquee.rev .track { animation-direction: reverse; animation-duration: 46s; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* rolling countdown digits */
+    .count b { overflow: hidden; }
+    .count b.roll { animation: roll .55s cubic-bezier(.2,.8,.2,1); }
+    @keyframes roll { from { transform: translateY(-45%); opacity: 0; filter: blur(3px); } }
+
+    /* scroll progress */
+    .progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform-origin: left; transform: scaleX(0); z-index: 30; }
+
+    /* event rows draw their rule */
+    .ev { border-top: 0 !important; position: relative; }
+    .ev::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line); transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(.7,0,.2,1); }
+    .ev.in::before { transform: scaleX(1); }
+    .ev h3 { transition: transform .5s cubic-bezier(.2,.8,.2,1), color .4s ease; }
+    .ev:hover h3 { transform: translateX(10px); color: var(--accent); }
+    .ev-date b { transition: transform .5s ease; }
+    .ev:hover .ev-date b { transform: scale(1.08); }
+
+    .photo { will-change: transform; }
+
     footer { padding: 90px 0 110px; text-align: center; }
     footer .mono { font-size: 54px; }
     footer p { margin-top: 14px; }
@@ -157,6 +202,7 @@
       .hero-actions { justify-content: center; }
       .names .amp { padding-left: 0; }
       .ev { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; }
+      .hero-sprig { display: none; }
       .ev-date { display: flex; align-items: baseline; gap: 12px; }
       .ev-date b { font-size: 40px; }
       .count div { padding: 24px 4px; }
@@ -170,6 +216,7 @@
 
   <div id="cover">
     <div class="cover-inner">
+      <svg class="sprig cover-sprig" viewBox="0 0 80 200" aria-hidden="true"><path d="M40 196 C 38 150, 44 100, 40 8"/><path style="--i:0" d="M40 160 C 22 152, 12 138, 10 122 C 26 126, 36 140, 40 160"/><path style="--i:1" d="M40 130 C 58 122, 68 108, 70 92 C 54 96, 44 110, 40 130"/><path style="--i:2" d="M40 100 C 24 92, 16 78, 15 64 C 29 68, 38 82, 40 100"/><path style="--i:3" d="M40 72 C 55 65, 62 52, 63 40 C 50 43, 42 56, 40 72"/><path style="--i:4" d="M40 44 C 30 38, 26 28, 27 18 C 36 21, 40 32, 40 44"/></svg>
       <p class="label">Together with their families</p>
       <div class="mono">P<i>&amp;</i>S</div>
       <div class="cover-line"></div>
@@ -178,20 +225,23 @@
     </div>
   </div>
 
+  <div class="progress" id="progress"></div>
   <header class="bar" id="bar">
     <a href="#top" class="mono">P<i>&amp;</i>S</a>
     <button class="sound" id="soundBtn" aria-label="Toggle music"><span class="eq"><i></i><i></i><i></i></span><span id="soundTxt">Sound</span></button>
   </header>
 
   <main id="top">
-    <section class="hero">
+    <section class="hero" style="position:relative">
+      <svg class="sprig hero-sprig tl" viewBox="0 0 80 200" aria-hidden="true"><path d="M40 196 C 38 150, 44 100, 40 8"/><path style="--i:0" d="M40 160 C 22 152, 12 138, 10 122 C 26 126, 36 140, 40 160"/><path style="--i:1" d="M40 130 C 58 122, 68 108, 70 92 C 54 96, 44 110, 40 130"/><path style="--i:2" d="M40 100 C 24 92, 16 78, 15 64 C 29 68, 38 82, 40 100"/><path style="--i:3" d="M40 72 C 55 65, 62 52, 63 40 C 50 43, 42 56, 40 72"/><path style="--i:4" d="M40 44 C 30 38, 26 28, 27 18 C 36 21, 40 32, 40 44"/></svg>
+      <svg class="sprig hero-sprig br" viewBox="0 0 80 200" aria-hidden="true"><path d="M40 196 C 38 150, 44 100, 40 8"/><path style="--i:0" d="M40 160 C 22 152, 12 138, 10 122 C 26 126, 36 140, 40 160"/><path style="--i:1" d="M40 130 C 58 122, 68 108, 70 92 C 54 96, 44 110, 40 130"/><path style="--i:2" d="M40 100 C 24 92, 16 78, 15 64 C 29 68, 38 82, 40 100"/><path style="--i:3" d="M40 72 C 55 65, 62 52, 63 40 C 50 43, 42 56, 40 72"/><path style="--i:4" d="M40 44 C 30 38, 26 28, 27 18 C 36 21, 40 32, 40 44"/></svg>
       <div class="wrap hero-grid">
         <div class="hero-text">
           <p class="label rv">We are getting married</p>
           <h1 class="names">
-            <span class="rv d1">Prasanna</span>
-            <span class="amp rv d2">&amp;</span>
-            <span class="rv d3">Shivani</span>
+            <span class="line"><span>Prasanna</span></span>
+            <span class="line amp"><span>&amp;</span></span>
+            <span class="line"><span>Shivani</span></span>
           </h1>
           <div class="date-row rv d2"><hr class="rule" /><span>23 . 12 . 2026</span></div>
           <p class="hero-sub rv d3">Wednesday · <span data-cfg="city"></span></p>
@@ -207,6 +257,7 @@
       </div>
     </section>
 
+    <div class="marquee" aria-hidden="true"><div class="track"><span>Prasanna <i>✦</i></span><span>Shivani <i>✦</i></span><span>23 . 12 . 2026 <i>✦</i></span><span>Prasanna <i>✦</i></span><span>Shivani <i>✦</i></span><span>23 . 12 . 2026 <i>✦</i></span></div></div>
     <section class="invite">
       <div class="wrap">
         <p class="label rv">An invitation</p>
@@ -269,13 +320,15 @@
       </div>
     </section>
 
+    <div class="marquee rev" aria-hidden="true"><div class="track"><span>Prasanna <i>✦</i></span><span>Shivani <i>✦</i></span><span>23 . 12 . 2026 <i>✦</i></span><span>Prasanna <i>✦</i></span><span>Shivani <i>✦</i></span><span>23 . 12 . 2026 <i>✦</i></span></div></div>
     <footer>
+      <svg class="sprig foot-sprig" viewBox="0 0 80 200" aria-hidden="true"><path d="M40 196 C 38 150, 44 100, 40 8"/><path style="--i:0" d="M40 160 C 22 152, 12 138, 10 122 C 26 126, 36 140, 40 160"/><path style="--i:1" d="M40 130 C 58 122, 68 108, 70 92 C 54 96, 44 110, 40 130"/><path style="--i:2" d="M40 100 C 24 92, 16 78, 15 64 C 29 68, 38 82, 40 100"/><path style="--i:3" d="M40 72 C 55 65, 62 52, 63 40 C 50 43, 42 56, 40 72"/><path style="--i:4" d="M40 44 C 30 38, 26 28, 27 18 C 36 21, 40 32, 40 44"/></svg>
       <div class="mono rv">P<i>&amp;</i>S</div>
       <p class="label rv d1">#PrasannaWedsShivani</p>
     </footer>
   </main>
 
-  <script src="../core.js?v=6"></script>
+  <script src="../core.js?v=7"></script>
   <script>
     // fill from CONFIG
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
@@ -291,7 +344,13 @@
     $("#mapBtn").href = mapsLink(CONFIG.mapQuery);
     $("#mapFrame").src = "https://maps.google.com/maps?q=" + encodeURIComponent(CONFIG.mapQuery) + "&z=14&output=embed";
 
-    countdown((t) => { $("#cdD").textContent = t.d; $("#cdH").textContent = t.h; $("#cdM").textContent = t.m; $("#cdS").textContent = t.s; });
+    const roll = (el, v) => { if (el.textContent === v) return; el.textContent = v; el.classList.remove("roll"); void el.offsetWidth; el.classList.add("roll"); };
+    countdown((t) => { roll($("#cdD"), t.d); roll($("#cdH"), t.h); roll($("#cdM"), t.m); roll($("#cdS"), t.s); });
+
+    // self-drawing sprigs
+    $$(".sprig path").forEach((p) => p.style.setProperty("--len", Math.ceil(p.getTotalLength())));
+    const drawIO = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("on"); drawIO.unobserve(e.target); } }), { threshold: 0.3 });
+    $(".cover-sprig").classList.add("on");
     $("#calBtn").addEventListener("click", () => window.open(calendarUrl(), "_blank", "noopener"));
 
     const setSound = () => { $("#soundBtn").classList.toggle("on", Music.playing); $("#soundTxt").textContent = Music.playing ? "Sound on" : "Sound off"; };
@@ -306,9 +365,17 @@
       document.body.classList.remove("locked");
       document.body.classList.add("opened");
       watch();
+      $$(".sprig:not(.cover-sprig)").forEach((el) => drawIO.observe(el));
     });
 
-    addEventListener("scroll", () => $("#bar").classList.toggle("solid", scrollY > 30), { passive: true });
+    const photo = $(".photo");
+    const onScroll = () => {
+      $("#bar").classList.toggle("solid", scrollY > 30);
+      const max = document.documentElement.scrollHeight - innerHeight;
+      $("#progress").style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+      if (!reduced && scrollY < innerHeight * 1.2) photo.style.transform = `translateY(${scrollY * -0.08}px)`;
+    };
+    addEventListener("scroll", onScroll, { passive: true });
 
     $("#wishForm").addEventListener("submit", (e) => {
       e.preventDefault();
