@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
+  <title>Prasanna & Shivani — Wedding Invitation</title>
+  <meta name="description" content="Prasanna & Shivani invite you to celebrate their wedding on 23 December 2026." />
+  <meta property="og:title" content="Prasanna & Shivani — Wedding Invitation" />
+  <meta property="og:description" content="Wednesday, 23 December 2026." />
+  <meta property="og:image" content="https://manoharkharvi43.github.io/prasanna-shivani-wedding/assets/couple.jpg" />
+  <meta name="theme-color" content="#f6f2ea" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f6f2ea;
+      --paper: #fbf8f2;
+      --ink: #1f1d1a;
+      --muted: #85807a;
+      --line: #d9d2c5;
+      --accent: #6f7a5c;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Jost", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--serif); font-size: 19px; line-height: 1.65; overflow-x: hidden; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+    body.locked { overflow: hidden; height: 100vh; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    .label { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); }
+    .wrap { width: min(1080px, 100% - 40px); margin: 0 auto; }
+    .rule { height: 1px; background: var(--line); border: 0; }
+    section { padding: clamp(80px, 13vw, 150px) 0; }
+    h2 { font-weight: 300; font-size: clamp(40px, 6vw, 64px); line-height: 1.05; letter-spacing: -.01em; }
+    h2 em { font-style: italic; color: var(--accent); }
+
+    /* reveal */
+    .rv { opacity: 0; transform: translateY(26px); filter: blur(4px); transition: opacity 1.2s cubic-bezier(.2,.7,.2,1), transform 1.2s cubic-bezier(.2,.7,.2,1), filter 1.2s ease; }
+    .rv.in { opacity: 1; transform: none; filter: none; }
+    .rv.d1 { transition-delay: .12s; } .rv.d2 { transition-delay: .24s; } .rv.d3 { transition-delay: .36s; }
+
+    /* cover */
+    #cover {
+      position: fixed; inset: 0; z-index: 50; background: var(--paper);
+      display: grid; place-items: center; text-align: center; padding: 24px;
+      transition: opacity 1.1s ease, visibility 1.1s;
+    }
+    #cover.gone { opacity: 0; visibility: hidden; }
+    .cover-inner { display: grid; gap: 22px; justify-items: center; animation: fadeUp 1.6s cubic-bezier(.2,.7,.2,1) both; }
+    .mono { font-weight: 300; font-size: 64px; line-height: 1; letter-spacing: .04em; }
+    .mono i { font-style: italic; color: var(--accent); font-size: .7em; padding: 0 .12em; }
+    .cover-line { width: 1px; height: 56px; background: var(--line); }
+    .open {
+      font-family: var(--sans); font-size: 12px; letter-spacing: .32em; text-transform: uppercase;
+      padding: 14px 4px; position: relative;
+    }
+    .open::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: var(--ink); transform-origin: left; animation: line 2.4s ease-in-out infinite; }
+    @keyframes line { 0%,100% { transform: scaleX(.25); } 50% { transform: scaleX(1); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } }
+
+    /* top bar */
+    .bar { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; transition: background .4s ease, box-shadow .4s ease; }
+    .bar.solid { background: rgba(246,242,234,.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+    .bar .mono { font-size: 24px; }
+    .sound { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+    .sound .eq { display: flex; gap: 2px; align-items: flex-end; height: 12px; }
+    .sound .eq i { width: 2px; height: 3px; background: var(--ink); }
+    .sound.on .eq i { animation: eq 1s ease-in-out infinite; }
+    .sound.on .eq i:nth-child(2) { animation-delay: -.3s; } .sound.on .eq i:nth-child(3) { animation-delay: -.6s; }
+    @keyframes eq { 50% { height: 12px; } }
+
+    /* hero */
+    .hero { min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: 110px 0 70px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(40px, 7vw, 100px); align-items: center; }
+    .names { font-weight: 300; font-size: clamp(64px, 10vw, 132px); line-height: .92; letter-spacing: -.02em; margin: 28px 0 30px; }
+    .names span { display: block; }
+    .names .amp { font-style: italic; color: var(--accent); font-size: .5em; line-height: 1.3; padding-left: .12em; }
+    .date-row { display: flex; align-items: center; gap: 18px; font-family: var(--sans); font-weight: 300; font-size: 15px; letter-spacing: .3em; }
+    .date-row .rule { flex: 0 0 48px; background: var(--ink); }
+    .hero-sub { margin-top: 18px; font-style: italic; color: var(--muted); }
+    .hero-actions { display: flex; gap: 28px; margin-top: 44px; flex-wrap: wrap; }
+    .link { font-family: var(--sans); font-size: 12px; letter-spacing: .26em; text-transform: uppercase; padding-bottom: 6px; border-bottom: 1px solid var(--ink); transition: color .3s ease, border-color .3s ease; }
+    .link:hover { color: var(--accent); border-color: var(--accent); }
+    .photo { position: relative; justify-self: end; width: min(420px, 100%); }
+    .photo::before { content: ""; position: absolute; inset: 22px -22px -22px 22px; border: 1px solid var(--line); border-radius: 220px 220px 0 0; }
+    .photo-frame { position: relative; border-radius: 220px 220px 0 0; overflow: hidden; aspect-ratio: 3/4; clip-path: inset(100% 0 0 0); transition: clip-path 1.8s cubic-bezier(.7,0,.2,1) .2s; }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); transition: transform 2.6s cubic-bezier(.2,.7,.2,1) .2s; }
+    body.opened .photo-frame { clip-path: inset(0 0 0 0); }
+    body.opened .photo-frame img { transform: scale(1.02); }
+    .photo-cap { margin-top: 30px; text-align: right; }
+
+    /* invite */
+    .invite { text-align: center; }
+    .invite p.big { font-weight: 300; font-size: clamp(26px, 3.6vw, 40px); line-height: 1.35; max-width: 820px; margin: 26px auto 0; }
+    .invite p.big em { color: var(--accent); }
+
+    /* countdown */
+    .count { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 60px; }
+    .count div { padding: 34px 10px; text-align: center; }
+    .count div + div { border-left: 1px solid var(--line); }
+    .count b { display: block; font-weight: 300; font-size: clamp(40px, 7vw, 76px); line-height: 1; font-variant-numeric: tabular-nums; }
+    .count span { display: block; margin-top: 12px; }
+
+    /* events */
+    .ev-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 50px; }
+    .ev { display: grid; grid-template-columns: 160px 1fr 240px; gap: 30px; padding: 38px 0; border-top: 1px solid var(--line); align-items: baseline; }
+    .ev:last-child { border-bottom: 1px solid var(--line); }
+    .ev-date b { display: block; font-weight: 300; font-size: 54px; line-height: 1; }
+    .ev h3 { font-weight: 400; font-size: 32px; line-height: 1.15; }
+    .ev h3 small { font-family: var(--sans); font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--accent); vertical-align: middle; margin-left: 10px; border: 1px solid currentColor; padding: 3px 8px; border-radius: 99px; }
+    .ev p { color: var(--muted); font-style: italic; }
+    .ev-meta { font-family: var(--sans); font-weight: 300; font-size: 14px; line-height: 1.8; }
+    .ev-meta a { display: inline-block; margin-top: 8px; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; border-bottom: 1px solid var(--ink); }
+    .ev.main h3 { font-style: italic; color: var(--accent); }
+
+    /* venue */
+    .venue-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(30px, 6vw, 80px); align-items: center; }
+    .venue-grid h3 { font-weight: 300; font-size: clamp(34px, 4.5vw, 48px); line-height: 1.1; margin: 18px 0 12px; }
+    .venue-grid p { color: var(--muted); margin-bottom: 30px; }
+    .map { aspect-ratio: 4/3; border: 1px solid var(--line); padding: 10px; background: var(--paper); }
+    .map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(1) contrast(.95) sepia(.12); }
+
+    /* family */
+    .family { text-align: center; }
+    .fam-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center; max-width: 760px; margin: 40px auto 0; }
+    .fam-grid h4 { font-weight: 400; font-size: 26px; }
+    .fam-grid p { color: var(--muted); font-style: italic; }
+    .fam-amp { font-style: italic; font-size: 40px; color: var(--accent); font-weight: 300; }
+
+    /* blessings */
+    .bless { background: var(--paper); border-top: 1px solid var(--line); }
+    .bless-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 6vw, 80px); }
+    form { display: grid; gap: 28px; }
+    input, textarea { width: 100%; font: inherit; font-size: 20px; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 10px 0; resize: none; border-radius: 0; transition: border-color .3s ease; }
+    input:focus, textarea:focus { outline: none; border-color: var(--ink); }
+    input::placeholder, textarea::placeholder { color: #aaa49b; font-style: italic; }
+    .send { justify-self: start; font-family: var(--sans); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; padding: 16px 34px; border: 1px solid var(--ink); transition: background .3s ease, color .3s ease; }
+    .send:hover { background: var(--ink); color: var(--paper); }
+    .thanks { font-style: italic; color: var(--accent); min-height: 1.6em; }
+
+    footer { padding: 90px 0 110px; text-align: center; }
+    footer .mono { font-size: 54px; }
+    footer p { margin-top: 14px; }
+
+    @media (max-width: 860px) {
+      .hero { padding-top: 96px; }
+      .hero-grid, .venue-grid, .bless-grid { grid-template-columns: 1fr; }
+      .photo { justify-self: center; width: min(320px, 82%); order: -1; }
+      .photo-cap { text-align: center; }
+      .hero-text { text-align: center; }
+      .date-row { justify-content: center; }
+      .hero-actions { justify-content: center; }
+      .names .amp { padding-left: 0; }
+      .ev { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; }
+      .ev-date { display: flex; align-items: baseline; gap: 12px; }
+      .ev-date b { font-size: 40px; }
+      .count div { padding: 24px 4px; }
+      .count span { letter-spacing: .14em; font-size: 9px; }
+      .fam-grid { grid-template-columns: 1fr; gap: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; filter: none; transition: none; } .photo-frame { clip-path: none; transition: none; } }
+  </style>
+</head>
+<body class="locked">
+
+  <div id="cover">
+    <div class="cover-inner">
+      <p class="label">Together with their families</p>
+      <div class="mono">P<i>&amp;</i>S</div>
+      <div class="cover-line"></div>
+      <p class="label">23 · 12 · 2026</p>
+      <button class="open" id="openBtn">Open the invitation</button>
+    </div>
+  </div>
+
+  <header class="bar" id="bar">
+    <a href="#top" class="mono">P<i>&amp;</i>S</a>
+    <button class="sound" id="soundBtn" aria-label="Toggle music"><span class="eq"><i></i><i></i><i></i></span><span id="soundTxt">Sound</span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <p class="label rv">We are getting married</p>
+          <h1 class="names">
+            <span class="rv d1">Prasanna</span>
+            <span class="amp rv d2">&amp;</span>
+            <span class="rv d3">Shivani</span>
+          </h1>
+          <div class="date-row rv d2"><hr class="rule" /><span>23 . 12 . 2026</span></div>
+          <p class="hero-sub rv d3">Wednesday · <span data-cfg="city"></span></p>
+          <div class="hero-actions rv d3">
+            <a href="#events" class="link">The celebrations</a>
+            <button class="link" id="calBtn">Save the date</button>
+          </div>
+        </div>
+        <figure class="photo">
+          <div class="photo-frame"><img src="../assets/couple.jpg" alt="Prasanna and Shivani" /></div>
+          <figcaption class="photo-cap label">॥ Shree Ganeshaya Namah ॥</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="invite">
+      <div class="wrap">
+        <p class="label rv">An invitation</p>
+        <p class="big rv d1">With the blessings of our families, we joyfully invite you to share in the <em>beginning of our forever</em> — your presence would make our celebration complete.</p>
+        <div class="count rv d2">
+          <div><b id="cdD">00</b><span class="label">Days</span></div>
+          <div><b id="cdH">00</b><span class="label">Hours</span></div>
+          <div><b id="cdM">00</b><span class="label">Minutes</span></div>
+          <div><b id="cdS">00</b><span class="label">Seconds</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="events" style="padding-top:0">
+      <div class="wrap">
+        <div class="ev-head">
+          <h2 class="rv">The <em>celebrations</em></h2>
+          <p class="label rv d1">December 21 — 23, 2026</p>
+        </div>
+        <div id="eventList"></div>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="wrap venue-grid">
+        <div>
+          <p class="label rv">The venue</p>
+          <h3 class="rv d1" data-cfg="venueName"></h3>
+          <p class="rv d2" data-cfg="venueAddress"></p>
+          <a class="link rv d3" id="mapBtn" target="_blank" rel="noopener">Get directions</a>
+        </div>
+        <div class="map rv d1"><iframe id="mapFrame" title="Venue map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </div>
+    </section>
+
+    <section class="family" style="padding-top:0">
+      <div class="wrap">
+        <hr class="rule rv" style="max-width:120px;margin:0 auto 60px" />
+        <p class="label rv">With love, invited by</p>
+        <div class="fam-grid">
+          <div class="rv d1"><h4 data-cfg="groomParents"></h4><p data-cfg="groomFamily"></p></div>
+          <div class="fam-amp rv d2">&amp;</div>
+          <div class="rv d3"><h4 data-cfg="brideParents"></h4><p data-cfg="brideFamily"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bless">
+      <div class="wrap bless-grid">
+        <div>
+          <p class="label rv">Blessings</p>
+          <h2 class="rv d1">Leave us a <em>note</em></h2>
+        </div>
+        <form id="wishForm" class="rv d2">
+          <input id="wishName" placeholder="Your name" maxlength="60" required />
+          <textarea id="wishMsg" rows="3" placeholder="Your wishes for the couple" maxlength="400" required></textarea>
+          <button class="send" type="submit">Send blessings</button>
+          <p class="thanks" id="thanks"></p>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="mono rv">P<i>&amp;</i>S</div>
+      <p class="label rv d1">#PrasannaWedsShivani</p>
+    </footer>
+  </main>
+
+  <script src="../core.js?v=6"></script>
+  <script>
+    // fill from CONFIG
+    $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
+    const months = { January: "Jan", February: "Feb", March: "Mar", April: "Apr", May: "May", June: "Jun", July: "Jul", August: "Aug", September: "Sep", October: "Oct", November: "Nov", December: "Dec" };
+    $("#eventList").innerHTML = CONFIG.events.map((e) => {
+      const m = e.date.match(/(\w+)\s+(\d+),\s*\d+\s*·\s*(\w+)/) || [];
+      return `<article class="ev rv${e.main ? " main" : ""}">
+        <div class="ev-date"><b>${esc(m[2] || "")}</b><span class="label">${esc((months[m[1]] || "") + " · " + (m[3] || ""))}</span></div>
+        <div><h3>${esc(e.title)}${e.dress ? `<small>${esc(e.dress)}</small>` : ""}</h3><p>${esc(e.desc)}</p></div>
+        <div class="ev-meta">${esc(e.time)}<br />${esc(e.place)}<br /><a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Directions</a></div>
+      </article>`;
+    }).join("");
+    $("#mapBtn").href = mapsLink(CONFIG.mapQuery);
+    $("#mapFrame").src = "https://maps.google.com/maps?q=" + encodeURIComponent(CONFIG.mapQuery) + "&z=14&output=embed";
+
+    countdown((t) => { $("#cdD").textContent = t.d; $("#cdH").textContent = t.h; $("#cdM").textContent = t.m; $("#cdS").textContent = t.s; });
+    $("#calBtn").addEventListener("click", () => window.open(calendarUrl(), "_blank", "noopener"));
+
+    const setSound = () => { $("#soundBtn").classList.toggle("on", Music.playing); $("#soundTxt").textContent = Music.playing ? "Sound on" : "Sound off"; };
+    $("#soundBtn").addEventListener("click", () => { Music.toggle(); setSound(); });
+
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+    const watch = () => $$(".rv:not(.in)").forEach((el) => io.observe(el));
+
+    $("#openBtn").addEventListener("click", () => {
+      Music.start(); setSound();
+      $("#cover").classList.add("gone");
+      document.body.classList.remove("locked");
+      document.body.classList.add("opened");
+      watch();
+    });
+
+    addEventListener("scroll", () => $("#bar").classList.toggle("solid", scrollY > 30), { passive: true });
+
+    $("#wishForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = $("#wishName").value.trim(), msg = $("#wishMsg").value.trim();
+      if (!name || !msg) return;
+      sendWish(name, msg);
+      $("#thanks").textContent = `Thank you, ${name}. Your blessings mean the world to us.`;
+      e.target.reset();
+    });
+
+    designSwitcher(2);
+  </script>
+</body>
+</html>

@@ -325,7 +325,7 @@ body.opened .music-btn { opacity: 1; transform: none; }
 .person-photo { position: relative; width: clamp(200px, 26vw, 280px); aspect-ratio: 1; transform-style: preserve-3d; transition: transform .2s ease-out; }
 .crop {
   position: absolute; inset: 0; border-radius: 50%;
-  background-image: url("assets/couple.jpg"); background-size: 280% auto; background-repeat: no-repeat;
+  background-image: url("../assets/couple.jpg"); background-size: 280% auto; background-repeat: no-repeat;
   box-shadow: 0 0 0 6px var(--cream), 0 0 0 7px var(--gold), 0 30px 60px rgba(92,15,27,.25);
 }
 .crop-groom { background-position: 28% 34%; }

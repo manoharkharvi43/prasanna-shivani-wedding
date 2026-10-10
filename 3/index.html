@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
+  <title>Prasanna & Shivani — Wedding Invitation</title>
+  <meta name="description" content="Prasanna & Shivani invite you to celebrate their wedding on 23 December 2026." />
+  <meta property="og:title" content="Prasanna & Shivani — Wedding Invitation" />
+  <meta property="og:description" content="Wednesday, 23 December 2026." />
+  <meta property="og:image" content="https://manoharkharvi43.github.io/prasanna-shivani-wedding/assets/couple.jpg" />
+  <meta name="theme-color" content="#0d0e12" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0e12;
+      --bg-2: #14161c;
+      --card: rgba(255,255,255,.035);
+      --line: rgba(214,190,140,.22);
+      --text: #ece6da;
+      --muted: #9a958c;
+      --gold: #d6be8c;
+      --gold-2: #f1e2bd;
+      --display: "Playfair Display", Georgia, serif;
+      --sans: "Manrope", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: hidden; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+    body.locked { overflow: hidden; height: 100vh; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    ::selection { background: var(--gold); color: var(--bg); }
+
+    .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); }
+    .wrap { width: min(1040px, 100% - 40px); margin: 0 auto; }
+    section { padding: clamp(80px, 12vw, 140px) 0; position: relative; }
+    .title { font-family: var(--display); font-weight: 400; font-size: clamp(36px, 5.4vw, 58px); line-height: 1.1; margin-top: 14px; }
+    .title em { color: var(--gold); }
+    .center { text-align: center; }
+    .gold-text { background: linear-gradient(120deg, #b99a5f, var(--gold-2) 40%, #c9ad74 60%, var(--gold-2)); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 7s linear infinite; }
+    @keyframes sheen { to { background-position: 200% 0; } }
+
+    .rv { opacity: 0; transform: translateY(30px); transition: opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); }
+    .rv.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+
+    /* cover */
+    #cover { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: grid; place-items: center; text-align: center; padding: 24px; clip-path: circle(150% at 50% 50%); transition: clip-path 1.4s cubic-bezier(.7,0,.2,1); }
+    #cover.gone { clip-path: circle(0% at 50% 50%); }
+    .ring { position: relative; width: 210px; height: 210px; margin: 0 auto 34px; display: grid; place-items: center; }
+    .ring::before, .ring::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--line); }
+    .ring::after { inset: -14px; border-color: rgba(214,190,140,.1); animation: pulse 3s ease-out infinite; }
+    @keyframes pulse { 0% { transform: scale(.92); opacity: 1; } 100% { transform: scale(1.18); opacity: 0; } }
+    .ring svg { position: absolute; inset: -1px; animation: spin 14s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .mono { font-family: var(--display); font-style: italic; font-size: 58px; line-height: 1; }
+    .mono span { font-size: .55em; color: var(--muted); padding: 0 .1em; }
+    .cover-names { font-family: var(--display); font-size: 22px; letter-spacing: .02em; margin: 10px 0 30px; color: var(--muted); }
+    .btn { display: inline-flex; align-items: center; gap: 12px; padding: 15px 30px; border-radius: 999px; font-size: 12px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; border: 1px solid var(--gold); color: var(--gold-2); transition: background .35s ease, color .35s ease; }
+    .btn:hover { background: var(--gold); color: var(--bg); }
+    .btn.solid { background: var(--gold); color: var(--bg); }
+    .btn.solid:hover { background: var(--gold-2); }
+
+    /* bar */
+    .bar { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; transition: background .4s ease, border-color .4s ease; border-bottom: 1px solid transparent; }
+    .bar.solid { background: rgba(13,14,18,.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
+    .bar .mono { font-size: 24px; }
+    .sound { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; }
+    .sound .eq { display: flex; gap: 2px; align-items: flex-end; height: 14px; }
+    .sound .eq i { width: 2px; height: 3px; background: var(--gold); border-radius: 1px; }
+    .sound.on .eq i { animation: eq 1s ease-in-out infinite; }
+    .sound.on .eq i:nth-child(2) { animation-delay: -.3s; } .sound.on .eq i:nth-child(3) { animation-delay: -.6s; } .sound.on .eq i:nth-child(4) { animation-delay: -.15s; }
+    @keyframes eq { 50% { height: 14px; } }
+
+    /* hero */
+    .hero { min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: 110px 0 90px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: -40px; background: url("../assets/couple.jpg") center 30% / cover; filter: blur(38px) saturate(.9) brightness(.35); transform: scale(1.1); }
+    .hero-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 20%, var(--bg) 75%); }
+    .hero-inner { position: relative; text-align: center; }
+    .portrait { width: min(300px, 70vw); aspect-ratio: 4/5; margin: 0 auto 40px; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0,0,0,.6); transform: perspective(900px) rotateX(8deg) scale(.94); opacity: 0; transition: transform 1.8s cubic-bezier(.2,.7,.2,1), opacity 1.4s ease; }
+    body.opened .portrait { transform: none; opacity: 1; }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    .names { font-family: var(--display); font-weight: 400; font-size: clamp(52px, 9vw, 108px); line-height: 1.02; letter-spacing: -.01em; margin: 18px 0 22px; }
+    .names em { display: block; font-size: .42em; color: var(--muted); margin: .1em 0; }
+    .chip { display: inline-flex; gap: 14px; align-items: center; padding: 10px 22px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; background: var(--card); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .chip i { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
+
+    /* countdown */
+    .count { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 760px; margin: 50px auto 0; }
+    .count div { padding: 30px 8px 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); text-align: center; }
+    .count b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(36px, 6vw, 60px); line-height: 1; font-variant-numeric: tabular-nums; }
+    .count span { display: block; margin-top: 12px; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+    .invite-text { max-width: 640px; margin: 22px auto 0; color: var(--muted); font-size: 17px; }
+
+    /* timeline */
+    .timeline { position: relative; max-width: 820px; margin: 60px auto 0; }
+    .timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(transparent, var(--line) 8%, var(--line) 92%, transparent); }
+    .tl { position: relative; width: 50%; padding: 0 44px 50px; }
+    .tl:nth-child(odd) { text-align: right; }
+    .tl:nth-child(even) { margin-left: 50%; }
+    .tl::before { content: ""; position: absolute; top: 26px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 1px solid var(--gold); }
+    .tl:nth-child(odd)::before { right: -5px; } .tl:nth-child(even)::before { left: -4px; }
+    .tl.main::before { background: var(--gold); box-shadow: 0 0 0 6px rgba(214,190,140,.15); }
+    .card { padding: 26px 26px 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); transition: border-color .4s ease, transform .4s ease; }
+    .card:hover { border-color: rgba(214,190,140,.5); transform: translateY(-3px); }
+    .tl.main .card { background: linear-gradient(160deg, rgba(214,190,140,.14), rgba(214,190,140,.03)); border-color: rgba(214,190,140,.45); }
+    .card .when { font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+    .card h3 { font-family: var(--display); font-weight: 400; font-size: 28px; line-height: 1.2; margin: 8px 0 6px; }
+    .card p { color: var(--muted); font-size: 15px; }
+    .card .meta { margin-top: 14px; font-size: 14px; color: var(--text); }
+    .card .meta a { color: var(--gold); border-bottom: 1px solid var(--line); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+    .dress { display: inline-block; margin-top: 10px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); color: var(--gold-2); }
+
+    /* venue */
+    .venue { display: grid; grid-template-columns: 1fr 1.2fr; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: var(--card); margin-top: 50px; }
+    .venue-info { padding: clamp(30px, 5vw, 54px); display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+    .venue-info h3 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4vw, 40px); line-height: 1.15; }
+    .venue-info p { color: var(--muted); margin-bottom: 14px; }
+    .venue-info .btn { align-self: flex-start; }
+    .venue iframe { width: 100%; height: 100%; min-height: 340px; border: 0; filter: invert(.92) hue-rotate(180deg) saturate(.4) brightness(.9); }
+
+    /* family */
+    .fam { display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center; max-width: 760px; margin: 40px auto 0; }
+    .fam h4 { font-family: var(--display); font-weight: 400; font-size: 24px; }
+    .fam p { color: var(--muted); }
+    .fam .amp { font-family: var(--display); font-style: italic; font-size: 40px; color: var(--gold); }
+
+    /* blessings */
+    .bless { max-width: 620px; margin: 44px auto 0; padding: clamp(26px, 5vw, 44px); border: 1px solid var(--line); border-radius: 24px; background: var(--card); display: grid; gap: 16px; }
+    .bless input, .bless textarea { width: 100%; font: inherit; font-size: 16px; color: var(--text); background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 14px; padding: 15px 18px; resize: none; transition: border-color .3s ease; }
+    .bless input:focus, .bless textarea:focus { outline: none; border-color: var(--gold); }
+    .bless input::placeholder, .bless textarea::placeholder { color: #6f6b64; }
+    .bless .btn { justify-self: center; margin-top: 6px; }
+    .thanks { text-align: center; color: var(--gold-2); font-family: var(--display); font-style: italic; min-height: 1.5em; }
+
+    footer { padding: 70px 0 110px; text-align: center; border-top: 1px solid var(--line); }
+    footer .mono { font-size: 48px; }
+    footer p { margin-top: 10px; color: var(--muted); font-size: 13px; letter-spacing: .2em; }
+
+    @media (max-width: 760px) {
+      .chip { flex-wrap: wrap; justify-content: center; gap: 4px 10px; padding: 10px 18px; font-size: 11px; letter-spacing: .16em; border-radius: 22px; }
+      .chip span { white-space: nowrap; }
+      .count { gap: 8px; }
+      .count div { padding: 20px 4px 16px; border-radius: 14px; }
+      .count span { letter-spacing: .14em; font-size: 9px; }
+      .timeline::before { left: 4px; }
+      .tl, .tl:nth-child(even) { width: 100%; margin-left: 0; padding: 0 0 26px 30px; text-align: left !important; }
+      .tl::before, .tl:nth-child(odd)::before, .tl:nth-child(even)::before { left: 0; right: auto; }
+      .venue { grid-template-columns: 1fr; }
+      .fam { grid-template-columns: 1fr; gap: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .rv, .portrait { opacity: 1; transform: none; transition: none; } }
+  </style>
+</head>
+<body class="locked">
+
+  <div id="cover">
+    <div>
+      <div class="ring">
+        <svg viewBox="0 0 212 212" aria-hidden="true"><circle cx="106" cy="106" r="105" fill="none" stroke="#d6be8c" stroke-width="1.4" stroke-dasharray="40 620" stroke-linecap="round" /></svg>
+        <div class="mono gold-text">P<span>&amp;</span>S</div>
+      </div>
+      <p class="eyebrow">You are invited</p>
+      <p class="cover-names">Prasanna &amp; Shivani · 23.12.2026</p>
+      <button class="btn" id="openBtn">Open invitation</button>
+    </div>
+  </div>
+
+  <header class="bar" id="bar">
+    <a href="#top" class="mono gold-text">P<span>&amp;</span>S</a>
+    <button class="sound" id="soundBtn" aria-label="Toggle music"><span class="eq"><i></i><i></i><i></i><i></i></span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="wrap hero-inner">
+        <div class="portrait"><img src="../assets/couple.jpg" alt="Prasanna and Shivani" /></div>
+        <p class="eyebrow rv">॥ Shree Ganeshaya Namah ॥</p>
+        <h1 class="names rv d1"><span class="gold-text">Prasanna</span><em>and</em><span class="gold-text">Shivani</span></h1>
+        <div class="chip rv d2"><span>Wed</span><i></i><span>23 Dec 2026</span><i></i><span data-cfg="city"></span></div>
+        <div class="hero-actions rv d3">
+          <a href="#events" class="btn solid">View events</a>
+          <button class="btn" id="calBtn">Save the date</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="center">
+      <div class="wrap">
+        <p class="eyebrow rv">The countdown</p>
+        <h2 class="title rv d1">Until we say <em>forever</em></h2>
+        <p class="invite-text rv d2">With the blessings of our families, we invite you to celebrate the beginning of our new journey together.</p>
+        <div class="count">
+          <div class="rv d1"><b id="cdD">00</b><span>Days</span></div>
+          <div class="rv d2"><b id="cdH">00</b><span>Hours</span></div>
+          <div class="rv d3"><b id="cdM">00</b><span>Minutes</span></div>
+          <div class="rv d4"><b id="cdS">00</b><span>Seconds</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="events" class="center" style="padding-top:0">
+      <div class="wrap">
+        <p class="eyebrow rv">Celebrations</p>
+        <h2 class="title rv d1">Schedule of <em>events</em></h2>
+        <div class="timeline" id="eventList"></div>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="center"><p class="eyebrow rv">Location</p><h2 class="title rv d1">The <em>venue</em></h2></div>
+        <div class="venue rv d2">
+          <div class="venue-info">
+            <p class="eyebrow">Muhurtham &amp; Reception</p>
+            <h3 data-cfg="venueName"></h3>
+            <p data-cfg="venueAddress"></p>
+            <a class="btn" id="mapBtn" target="_blank" rel="noopener">Directions</a>
+          </div>
+          <iframe id="mapFrame" title="Venue map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="center" style="padding-top:0">
+      <div class="wrap">
+        <p class="eyebrow rv">With love</p>
+        <h2 class="title rv d1">Invited <em>by</em></h2>
+        <div class="fam">
+          <div class="rv d1"><h4 data-cfg="groomParents"></h4><p data-cfg="groomFamily"></p></div>
+          <div class="amp rv d2">&amp;</div>
+          <div class="rv d3"><h4 data-cfg="brideParents"></h4><p data-cfg="brideFamily"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="center" style="padding-top:0">
+      <div class="wrap">
+        <p class="eyebrow rv">Blessings</p>
+        <h2 class="title rv d1">Send your <em>wishes</em></h2>
+        <form class="bless rv d2" id="wishForm">
+          <input id="wishName" placeholder="Your name" maxlength="60" required />
+          <textarea id="wishMsg" rows="4" placeholder="Write a few words for the couple…" maxlength="400" required></textarea>
+          <button class="btn solid" type="submit">Send blessings</button>
+          <p class="thanks" id="thanks"></p>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="mono gold-text">P<span>&amp;</span>S</div>
+      <p>#PRASANNAWEDSSHIVANI · 23.12.2026</p>
+    </footer>
+  </main>
+
+  <script src="../core.js?v=6"></script>
+  <script>
+    $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
+    $("#eventList").innerHTML = CONFIG.events.map((e, i) => `
+      <div class="tl rv${e.main ? " main" : ""}">
+        <div class="card">
+          <p class="when">${esc(e.date)}</p>
+          <h3>${esc(e.title)}</h3>
+          <p>${esc(e.desc)}</p>
+          ${e.dress ? `<span class="dress">Dress code · ${esc(e.dress)}</span>` : ""}
+          <p class="meta">${esc(e.time)} · ${esc(e.place)}<br /><a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Directions</a></p>
+        </div>
+      </div>`).join("");
+    $("#mapBtn").href = mapsLink(CONFIG.mapQuery);
+    $("#mapFrame").src = "https://maps.google.com/maps?q=" + encodeURIComponent(CONFIG.mapQuery) + "&z=14&output=embed";
+
+    countdown((t) => { $("#cdD").textContent = t.d; $("#cdH").textContent = t.h; $("#cdM").textContent = t.m; $("#cdS").textContent = t.s; });
+    $("#calBtn").addEventListener("click", () => window.open(calendarUrl(), "_blank", "noopener"));
+
+    const setSound = () => $("#soundBtn").classList.toggle("on", Music.playing);
+    $("#soundBtn").addEventListener("click", () => { Music.toggle(); setSound(); });
+
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+
+    $("#openBtn").addEventListener("click", () => {
+      Music.start(); setSound();
+      Music.bell(660, 0.08);
+      $("#cover").classList.add("gone");
+      document.body.classList.remove("locked");
+      document.body.classList.add("opened");
+      setTimeout(() => $$(".rv").forEach((el) => io.observe(el)), 500);
+    });
+
+    addEventListener("scroll", () => $("#bar").classList.toggle("solid", scrollY > 30), { passive: true });
+
+    $("#wishForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = $("#wishName").value.trim(), msg = $("#wishMsg").value.trim();
+      if (!name || !msg) return;
+      sendWish(name, msg);
+      $("#thanks").textContent = `Thank you, ${name} — your blessings mean the world to us.`;
+      e.target.reset();
+    });
+
+    designSwitcher(3);
+  </script>
+</body>
+</html>
