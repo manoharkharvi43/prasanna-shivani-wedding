@@ -328,7 +328,7 @@
     </footer>
   </main>
 
-  <script src="../core.js?v=8"></script>
+  <script src="../core.js?v=9"></script>
   <script>
     // fill from CONFIG
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
@@ -336,7 +336,7 @@
     $("#eventList").innerHTML = CONFIG.events.map((e) => {
       const m = e.date.match(/(\w+)\s+(\d+),\s*\d+\s*·\s*(\w+)/) || [];
       return `<article class="ev rv${e.main ? " main" : ""}">
-        <div class="ev-date"><b>${esc(m[2] || "")}</b><span class="label">${esc((months[m[1]] || "") + " · " + (m[3] || ""))}</span></div>
+        <div class="ev-date"><b>${esc(m[2] || "—")}</b><span class="label">${esc(m[1] ? months[m[1]] + " · " + m[3] : "Date to be announced")}</span></div>
         <div><h3>${esc(e.title)}${e.dress ? `<small>${esc(e.dress)}</small>` : ""}</h3><p>${esc(e.desc)}</p></div>
         <div class="ev-meta">${esc(e.time)}<br />${esc(e.place)}<br /><a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Directions</a></div>
       </article>`;

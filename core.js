@@ -4,29 +4,35 @@
 const CONFIG = {
   groom: "Prasanna",
   bride: "Shivani",
-  weddingDate: "2026-12-23T10:30:00+05:30", // Muhurtham (IST) — used by countdown
-  city: "Karnataka, India",
-  groomParents: "Smt. ______ & Sri ______",
-  groomFamily: "Groom's family, Hometown",
-  brideParents: "Smt. ______ & Sri ______",
-  brideFamily: "Bride's family, Hometown",
-  venueName: "Venue Name",
-  venueAddress: "Venue address, City, Karnataka",
-  mapQuery: "Bengaluru, Karnataka",          // text Google Maps will search
+  weddingDate: "2026-12-23T12:35:00+05:30", // Muhurtham 12:35 PM IST (Abhijith Lagna) — used by countdown
+  muhurtham: "12:35 PM · Abhijith Lagna",
+  city: "Kumta, Karnataka",
+  invocation: "Shree Shanteri Kamakshi Ramanath LakshmiNarayana Prasanna",
+  groomTitle: "Chi.",
+  brideTitle: "Chi. Sou.",
+  groomParents: "Smt. Prabha (Medha) & Shri Prakash Devidas Shanbhag",
+  groomFamily: "“Shri Ramanath”, Ternamakki, Bhatkal",
+  groomRelation: "Second son of",
+  brideParents: "Smt. Radhika & Shri Ashok Yashvanth Prabhu",
+  brideFamily: "Chitragi, Kumta",
+  brideRelation: "Daughter of",
+  compliments: ["Smt. Chaitra & Shri Prateek Shanbhag & Master Prathap, Bangalore", "Shanbhag & Kamath Family", "Relatives & Friends"],
+  venueName: "Shree Shanteri Kamakshi Sabhagraha",
+  venueAddress: "Car Street, Kumta, Karnataka",
+  mapQuery: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta",  // text Google Maps will search
   whatsapp: "",                               // e.g. "919876543210" — wishes go here; blank = wishes stay on page
   song: "assets/song.mp3",                    // path from site root; if missing, built-in raga music plays
+  photos: ["assets/couple-photo.jpg", "assets/couple.jpg", "assets/groom.jpg"],
   story: [
     { when: "Chapter One", title: "Two Paths", text: "Two souls, two stories, quietly moving toward the same destiny.", icon: "✦" },
     { when: "Chapter Two", title: "The First Hello", text: "A simple conversation that turned into a thousand more.", icon: "❀" },
     { when: "Chapter Three", title: "Families Unite", text: "With the blessings of elders, two families became one.", icon: "✿" },
     { when: "23 · 12 · 2026", title: "Forever Begins", text: "And so, our journey begins — with you by our side.", icon: "♥" },
   ],
+  // Haldi date/time/venue not on the card yet — replace the "to be announced" text when known
   events: [
-    { icon: "🌼", date: "December 21, 2026 · Monday", title: "Haldi Ceremony", desc: "Where traditions shine in shades of yellow and love", dress: "Yellow", time: "10:00 AM onwards", place: "Bride's Residence" },
-    { icon: "🌿", date: "December 21, 2026 · Monday", title: "Mehendi", desc: "Beautiful stories written in henna", dress: "Green", time: "4:00 PM onwards", place: "Bride's Residence" },
-    { icon: "🎶", date: "December 22, 2026 · Tuesday", title: "Sangeet Night", desc: "An evening set to the rhythm of joy & music", time: "6:30 PM onwards", place: "Venue Name, City" },
-    { icon: "🪔", date: "December 23, 2026 · Wednesday", title: "Muhurtham", desc: "A sacred bond and divine celebration for a lifetime of love", time: "10:30 AM", place: "Venue Name, City", main: true },
-    { icon: "✨", date: "December 23, 2026 · Wednesday", title: "Reception", desc: "Dinner, blessings and celebrations with our loved ones", time: "7:00 PM onwards", place: "Venue Name, City" },
+    { icon: "🌼", date: "Date to be announced", title: "Haldi Ceremony", desc: "Where traditions shine in shades of yellow and love", dress: "Yellow", time: "Time to be announced", place: "Venue to be announced" },
+    { icon: "🪔", date: "December 23, 2026 · Wednesday", title: "Wedding Ceremony", desc: "A sacred bond and divine celebration for a lifetime of love", time: "Muhurtham 12:35 PM · Abhijith Lagna", place: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta", main: true },
   ],
   showSwitcher: true,                         // floating "Design 1 / 2 / 3" pill — set false once a design is chosen
 };
@@ -38,7 +44,8 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const isMobile = matchMedia("(max-width: 768px)").matches;
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const mapsLink = (q) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+const isTBA = (s) => /to be announced/i.test(s || "");
+const mapsLink = (q) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(isTBA(q) ? CONFIG.mapQuery : q);
 
 function calendarUrl() {
   const start = new Date(CONFIG.weddingDate);
