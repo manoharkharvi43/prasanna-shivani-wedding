@@ -66,11 +66,10 @@
     #cover.gone { visibility: hidden; transition: visibility 0s 2.2s; }
     .curtain { position: absolute; top: 0; bottom: 0; width: 50.5%; background:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23d6be8c' stroke-opacity='.10'%3E%3Cpath d='M32 4c6 10 16 12 16 28S38 50 32 60C26 50 16 48 16 32S26 14 32 4z'/%3E%3Ccircle cx='32' cy='32' r='4'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 64px 64px,
-        linear-gradient(90deg, #0b0c11, #15171f 60%, #0e1016);
+        linear-gradient(90deg, #0b0c11, #12141b 70%, #13151c);
       transition: transform 2s cubic-bezier(.7,0,.2,1); z-index: 1; }
-    .curtain.l { left: 0; box-shadow: inset -30px 0 60px rgba(0,0,0,.5); }
-    .curtain.r { right: 0; transform: scaleX(-1); box-shadow: inset -30px 0 60px rgba(0,0,0,.5); }
-    .curtain.l::after, .curtain.r::after { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 2px; background: linear-gradient(transparent, var(--gold) 20%, var(--gold-2) 50%, var(--gold) 80%, transparent); box-shadow: 0 0 18px rgba(214,190,140,.6); }
+    .curtain.l { left: 0; }
+    .curtain.r { right: 0; transform: scaleX(-1); }
     #cover.open .curtain.l { transform: translateX(-102%); }
     #cover.open .curtain.r { transform: scaleX(-1) translateX(-102%); }
     .cover-in { position: relative; z-index: 2; padding: 24px; transition: opacity .7s ease, transform 1s ease; }
