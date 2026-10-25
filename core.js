@@ -22,7 +22,7 @@ const CONFIG = {
   mapQuery: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta",  // text Google Maps will search
   whatsapp: "",                               // e.g. "919876543210" — wishes go here; blank = wishes stay on page
   song: "assets/song.mp3",                    // path from site root; if missing, built-in raga music plays
-  photos: ["assets/couple-photo.jpg", "assets/couple.jpg", "assets/groom.jpg"],
+  photos: ["assets/couple-photo.jpg", "assets/bride.jpg", "assets/couple.jpg", "assets/groom.jpg"],
   story: [
     { when: "Chapter One", title: "Two Paths", text: "Two souls, two stories, quietly moving toward the same destiny.", icon: "✦" },
     { when: "Chapter Two", title: "The First Hello", text: "A simple conversation that turned into a thousand more.", icon: "❀" },

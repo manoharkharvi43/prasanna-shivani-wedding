@@ -98,30 +98,40 @@
     .sound.on .eq i:nth-child(2) { animation-delay: -.3s; } .sound.on .eq i:nth-child(3) { animation-delay: -.6s; } .sound.on .eq i:nth-child(4) { animation-delay: -.15s; }
     @keyframes eq { 50% { height: 14px; } }
 
-    /* ============ HERO: full-bleed photo ============ */
-    .hero { height: 100vh; height: 100svh; min-height: 560px; padding: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; text-align: center; }
-    .hero-img { position: absolute; inset: 0; }
-    .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; transform: scale(1.18); transition: transform 9s cubic-bezier(.2,.7,.2,1); }
-    body.opened .hero-img img { transform: scale(1.02); }
-    .hero-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,13,18,.55) 0%, rgba(12,13,18,0) 18%, rgba(12,13,18,0) 42%, rgba(12,13,18,.72) 64%, rgba(12,13,18,.97) 100%); }
-    .hero-top, .hero-bot { position: relative; z-index: 1; padding: 0 20px; }
-    .hero-top { padding-top: max(84px, 11vh); }
-    .hero-bot { padding-bottom: max(64px, 7vh); }
-    .hero-date { margin-top: 14px; }
-    .names { font-family: var(--display); font-weight: 400; font-size: clamp(46px, 8vw, 96px); line-height: 1; margin-top: 8px; }
+    /* ============ HERO: framed photo, names below ============ */
+    .hero { min-height: 100vh; min-height: 100svh; padding: 86px 20px 56px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .hero-bg { position: absolute; inset: -60px; background: url("../assets/couple-photo.jpg") center 20% / cover; filter: blur(40px) saturate(.9) brightness(.32); transform: scale(1.1); }
+    .hero-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, transparent 10%, var(--bg) 78%); }
+    .hero-photo { position: relative; z-index: 1; flex: none; width: min(400px, 74vw, calc((100svh - 470px) * .8)); min-width: 190px; aspect-ratio: 4/5; opacity: 0; transform: translateY(26px) scale(.96); transition: opacity 1.4s ease .2s, transform 1.8s cubic-bezier(.2,.7,.2,1) .2s; }
+    body.opened .hero-photo { opacity: 1; transform: none; }
+    .hero-photo::before { content: ""; position: absolute; inset: -12px; border: 1px solid var(--line); border-radius: 220px 220px 22px 22px; }
+    .hero-photo .ph { position: absolute; inset: 0; border-radius: 200px 200px 14px 14px; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,.6); }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; transform: scale(1.12); transition: transform 9s cubic-bezier(.2,.7,.2,1); }
+    body.opened .hero-photo img { transform: scale(1); }
+    .hero-photo .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 38%, rgba(255,240,205,.22) 50%, transparent 62%); transform: translateX(-120%); animation: sweep 7s ease-in-out 3s infinite; }
+    @keyframes sweep { 0% { transform: translateX(-120%); } 30%, 100% { transform: translateX(120%); } }
+    .hero-text { position: relative; z-index: 1; margin-top: clamp(22px, 3.4vh, 38px); }
+    .names { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 5.4vw, 72px); line-height: 1.05; margin-top: 8px; }
     .names .n { display: inline-block; opacity: 0; filter: blur(14px); letter-spacing: .3em; transition: opacity 1.6s ease, filter 1.6s ease, letter-spacing 2s cubic-bezier(.2,.8,.2,1); }
-    .names .amp { display: block; font-family: var(--script); color: var(--gold); font-size: .55em; line-height: 1.2; opacity: 0; transition: opacity 1.2s ease 1s; }
+    .names .amp { display: inline-block; font-family: var(--script); color: var(--gold); font-size: .8em; padding: 0 .18em; opacity: 0; transition: opacity 1.2s ease 1s; }
     body.opened .names .n { opacity: 1; filter: none; letter-spacing: 0; }
     body.opened .names .n.b { transition-delay: .35s; }
     body.opened .names .amp { opacity: 1; }
-    .hero-date { font-family: var(--display); font-size: clamp(30px, 5vw, 46px); letter-spacing: .08em; }
-    .hero-meta { margin-top: 6px; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold-2); }
+    .hero-date { margin-top: 12px; font-family: var(--display); font-size: clamp(24px, 3vw, 34px); letter-spacing: .08em; }
+    .hero-meta { margin-top: 4px; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold-2); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1.2s ease 1.2s, transform 1.2s ease 1.2s; }
     body.opened .fade-in { opacity: 1; transform: none; }
-    .cue { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 22px; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+    .cue { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 18px; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
     .cue span { width: 22px; height: 36px; border: 1px solid var(--gold); border-radius: 12px; position: relative; }
     .cue span::after { content: ""; position: absolute; left: 50%; top: 7px; width: 2px; height: 8px; margin-left: -1px; background: var(--gold); border-radius: 2px; animation: cue 1.8s ease infinite; }
     @keyframes cue { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+    @media (max-height: 700px) { .cue { display: none; } .hero { padding-bottom: 40px; } }
+    @media (max-width: 560px) {
+      .hero { padding-top: 84px; }
+      .names { font-size: clamp(42px, 12vw, 54px); }
+      .names .amp { display: block; font-size: .7em; line-height: 1.1; padding: 0; }
+      .hero-photo { width: min(300px, 72vw, calc((100svh - 480px) * .8)); }
+    }
 
     /* ============ INVITE ============ */
     .invocation { font-family: var(--display); font-style: italic; color: var(--gold); font-size: clamp(15px, 2vw, 19px); }
@@ -141,8 +151,7 @@
     .person .outline { position: absolute; inset: 0; border: 1px solid var(--gold); border-radius: 200px 200px 16px 16px; transform: translate(14px, 14px); opacity: 0; transition: opacity 1s ease .8s, transform 1.2s ease .8s; pointer-events: none; }
     .person.in .outline { opacity: .7; transform: translate(10px, 10px); }
     .person.groom .portrait img { object-position: 52% 22%; }
-    .person.bride .portrait img { object-position: 66% 30%; transform-origin: 66% 32%; }
-    .person.bride .portrait img, .person.bride.in .portrait img { transform: scale(1.85); }
+    .person.bride .portrait img { object-position: 50% 100%; }
     .plaque { position: relative; margin: -46px 14px 0; padding: 18px 16px 16px; text-align: center; border: 1px solid var(--line); border-radius: 14px; background: rgba(18,20,27,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; transform: translateY(24px); transition: opacity 1s ease 1s, transform 1s ease 1s; }
     .person.in .plaque { opacity: 1; transform: none; }
     .plaque .t { font-family: var(--script); color: var(--gold); font-size: 22px; line-height: 1; }
@@ -284,15 +293,15 @@
   <main id="top">
     <!-- hero -->
     <section class="hero">
-      <div class="hero-img"><img src="../assets/couple-photo.jpg" alt="Prasanna and Shivani" /></div>
-      <div class="hero-top"></div>
-      <div class="hero-bot">
-        <p class="eyebrow fade-in" style="transition-delay:.3s">The wedding of</p>
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-photo"><div class="ph"><img src="../assets/couple-photo.jpg" alt="Prasanna and Shivani" /></div></div>
+      <div class="hero-text">
+        <p class="eyebrow fade-in" style="transition-delay:.4s">The wedding of</p>
         <h1 class="names"><span class="n gold-text">Prasanna</span><span class="amp">&amp;</span><span class="n b gold-text">Shivani</span></h1>
         <div class="fade-in">
-        <p class="hero-date">23 · 12 · 2026</p>
-        <p class="hero-meta">Wednesday — Kumta</p>
-        <a href="#invite" class="cue"><span></span>Scroll</a>
+          <p class="hero-date">23 · 12 · 2026</p>
+          <p class="hero-meta">Wednesday — Kumta</p>
+          <a href="#invite" class="cue"><span></span>Scroll</a>
         </div>
       </div>
     </section>
@@ -319,7 +328,7 @@
           <p class="script weds rv">weds</p>
           <div class="person bride">
             <div class="outline"></div>
-            <div class="portrait"><img src="../assets/couple-photo.jpg" alt="Shivani" /></div>
+            <div class="portrait"><img src="../assets/bride.jpg" alt="Shivani" /></div>
             <div class="plaque">
               <p class="t" data-cfg="brideTitle"></p>
               <h3>Shivani</h3>
@@ -360,7 +369,7 @@
       </div>
       <div class="gallery rv d2">
         <div class="g-track" id="gTrack"></div>
-        <div class="g-nav"><button id="gPrev" aria-label="Previous photo">‹</button><span class="g-count" id="gCount">01 <small>/ 03</small></span><button id="gNext" aria-label="Next photo">›</button></div>
+        <div class="g-nav"><button id="gPrev" aria-label="Previous photo">‹</button><span class="g-count" id="gCount">01 <small>/ 04</small></span><button id="gNext" aria-label="Next photo">›</button></div>
       </div>
     </section>
 
@@ -417,7 +426,7 @@
     <p class="rv">23 · 12 · 2026 · Kumta</p>
   </footer>
 
-  <script src="../core.js?v=9"></script>
+  <script src="../core.js?v=10"></script>
   <script>
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
     $("#compl").innerHTML = CONFIG.compliments.map((c) => `<p>${esc(c)}</p>`).join("");
