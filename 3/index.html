@@ -217,15 +217,6 @@
     .compl { margin: 50px auto 0; max-width: 620px; padding: 26px 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .compl p { font-family: var(--display); font-size: 17px; line-height: 1.8; }
 
-    /* ============ BLESSINGS ============ */
-    .gifts { font-family: var(--display); font-style: italic; font-size: clamp(24px, 4vw, 34px); color: var(--gold-2); }
-    .bless { max-width: 600px; margin: 40px auto 0; padding: clamp(24px, 5vw, 40px); border: 1px solid var(--line); border-radius: 24px; background: var(--card); display: grid; gap: 14px; }
-    .bless input, .bless textarea { width: 100%; font: inherit; font-size: 16px; color: var(--text); background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 14px; padding: 15px 18px; resize: none; transition: border-color .3s ease; }
-    .bless input:focus, .bless textarea:focus { outline: none; border-color: var(--gold); }
-    .bless input::placeholder, .bless textarea::placeholder { color: #75706a; }
-    .bless .btn { justify-self: center; margin-top: 6px; }
-    .thanks { text-align: center; color: var(--gold-2); font-family: var(--display); font-style: italic; min-height: 1.5em; }
-
     footer { position: relative; z-index: 2; padding: 80px 20px 120px; text-align: center; border-top: 1px solid var(--line); }
     footer .names-f { font-family: var(--display); font-size: clamp(36px, 7vw, 60px); line-height: 1.1; }
     footer .names-f i { font-family: var(--script); font-style: normal; color: var(--gold); padding: 0 .12em; }
@@ -380,20 +371,6 @@
       </div>
     </section>
 
-    <!-- blessings -->
-    <section class="center" style="padding-top:0">
-      <div class="wrap">
-        <div class="orn rv">❁</div>
-        <p class="gifts rv" style="margin-top:18px">Presents in blessings only</p>
-        <p class="rv" style="color:var(--muted);margin-top:8px">Your presence and blessings will make our celebration complete.</p>
-        <form class="bless rv" id="wishForm">
-          <input id="wishName" placeholder="Your name" maxlength="60" required />
-          <textarea id="wishMsg" rows="4" placeholder="Write a few words for the couple…" maxlength="400" required></textarea>
-          <button class="btn solid" type="submit">Send blessings</button>
-          <p class="thanks" id="thanks"></p>
-        </form>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -510,15 +487,6 @@
       const r = ilSec.getBoundingClientRect();
       if (r.bottom > 0 && r.top < innerHeight) il.style.transform = `translateY(${(r.top / innerHeight) * -40 - 20}px)`;
     }, { passive: true });
-
-    $("#wishForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = $("#wishName").value.trim(), msg = $("#wishMsg").value.trim();
-      if (!name || !msg) return;
-      sendWish(name, msg);
-      $("#thanks").textContent = `Thank you, ${name} — your blessings mean the world to us.`;
-      e.target.reset();
-    });
 
   </script>
 </body>
