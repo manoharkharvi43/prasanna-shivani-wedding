@@ -200,19 +200,6 @@
     .ev-actions { display: flex; gap: 10px; flex-wrap: wrap; padding: 0 28px 28px; justify-content: center; }
     .ev-actions .btn { padding: 11px 20px; font-size: 11px; }
 
-    /* ============ GALLERY ============ */
-    .gallery { margin-top: 44px; }
-    .g-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 max(20px, calc(50vw - 260px)); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-    .g-track::-webkit-scrollbar { display: none; }
-    .g-item { flex: 0 0 min(520px, 78vw); aspect-ratio: 4/5; border-radius: 22px; overflow: hidden; scroll-snap-align: center; border: 1px solid var(--line); transition: transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s ease; opacity: .45; transform: scale(.92); }
-    .g-item.act { opacity: 1; transform: none; }
-    .g-item img { width: 100%; height: 100%; object-fit: cover; }
-    .g-nav { display: flex; align-items: center; justify-content: center; gap: 22px; margin-top: 24px; }
-    .g-nav button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); color: var(--gold); font-size: 18px; transition: background .3s ease; }
-    .g-nav button:hover { background: rgba(214,190,140,.12); }
-    .g-count { font-family: var(--display); font-size: 20px; min-width: 70px; text-align: center; }
-    .g-count small { color: var(--muted); font-size: 14px; }
-
     /* ============ COUNTDOWN ============ */
     .count { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 720px; margin: 46px auto 0; }
     .count div { padding: 28px 6px 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); text-align: center; perspective: 400px; }
@@ -361,18 +348,6 @@
       </div>
     </section>
 
-    <!-- gallery -->
-    <section class="center" style="padding-top:0">
-      <div class="wrap">
-        <p class="eyebrow rv">Moments</p>
-        <h2 class="title rv d1">A glimpse <em>of us</em></h2>
-      </div>
-      <div class="gallery rv d2">
-        <div class="g-track" id="gTrack"></div>
-        <div class="g-nav"><button id="gPrev" aria-label="Previous photo">‹</button><span class="g-count" id="gCount">01 <small>/ 04</small></span><button id="gNext" aria-label="Next photo">›</button></div>
-      </div>
-    </section>
-
     <!-- countdown -->
     <section class="center" style="padding-top:0">
       <div class="wrap">
@@ -463,27 +438,6 @@
         </div>`}
       </article>`;
     }).join("");
-
-    /* gallery */
-    (() => {
-      const track = $("#gTrack");
-      track.innerHTML = CONFIG.photos.map((p, i) => `<figure class="g-item${i ? "" : " act"}"><img src="${CORE_BASE}${p}" alt="Prasanna and Shivani — photo ${i + 1}" loading="lazy" /></figure>`).join("");
-      const items = $$(".g-item", track), n = items.length, pad = (x) => String(x).padStart(2, "0");
-      let cur = 0;
-      const mark = () => {
-        const mid = track.scrollLeft + track.clientWidth / 2;
-        let best = 0, dist = 1e9;
-        items.forEach((it, i) => { const d = Math.abs(it.offsetLeft + it.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = i; } });
-        cur = best;
-        items.forEach((it, i) => it.classList.toggle("act", i === cur));
-        $("#gCount").innerHTML = `${pad(cur + 1)} <small>/ ${pad(n)}</small>`;
-      };
-      const go = (i) => { const it = items[(i + n) % n]; track.scrollTo({ left: it.offsetLeft - (track.clientWidth - it.offsetWidth) / 2, behavior: "smooth" }); };
-      track.addEventListener("scroll", () => requestAnimationFrame(mark), { passive: true });
-      $("#gPrev").addEventListener("click", () => go(cur - 1));
-      $("#gNext").addEventListener("click", () => go(cur + 1));
-      mark();
-    })();
 
     /* countdown */
     const flip = (el, v) => { if (el.textContent === v) return; el.textContent = v; el.classList.remove("flip"); void el.offsetWidth; el.classList.add("flip"); };
