@@ -401,7 +401,7 @@
     <p class="rv">23 · 12 · 2026 · Kumta</p>
   </footer>
 
-  <script src="../core.js?v=13"></script>
+  <script src="../core.js?v=14"></script>
   <script>
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
     $("#compl").innerHTML = CONFIG.compliments.map((c) => `<p>${esc(c)}</p>`).join("");
@@ -520,7 +520,6 @@
       e.target.reset();
     });
 
-    designSwitcher(3);
   </script>
 </body>
 </html>

@@ -21,7 +21,7 @@ const CONFIG = {
   venueAddress: "Car Street, Kumta, Karnataka",
   mapQuery: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta",  // text Google Maps will search
   whatsapp: "",                               // e.g. "919876543210" — wishes go here; blank = wishes stay on page
-  youtube: "5JkkUXeajbM",                     // background song from YouTube (video id); "" to disable
+  youtube: "QrRh_bqfZco",                     // background song from YouTube (video id); "" to disable
   song: "assets/song.mp3",                    // used if youtube is "" — path from site root; if missing, built-in raga music plays
   photos: ["assets/couple-photo.jpg", "assets/bride.jpg", "assets/couple.jpg", "assets/groom.jpg"],
   story: [
@@ -35,7 +35,6 @@ const CONFIG = {
     { icon: "🪔", date: "December 23, 2026 · Wednesday", title: "Wedding Ceremony", desc: "A sacred bond and divine celebration for a lifetime of love", time: "Muhurtham 12:35 PM · Abhijith Lagna", place: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta", main: true },
     { icon: "✨", date: "December 25, 2026 · Friday", title: "Reception", desc: "Celebrate our new beginning with us, with blessings and a feast", time: "11:00 AM onwards", place: "Shri Nagayakshe Dharmartha Sabhabhavana, N.H. 66, Bhatkal", start: "2026-12-25T11:00:00+05:30" },
   ],
-  showSwitcher: false,                         // floating "Design 1 / 2 / 3" pill — set false once a design is chosen
 };
 
 /* ===== shared helpers (used by all three designs) ===== */
@@ -78,15 +77,6 @@ function sendWish(name, msg) {
   if (!CONFIG.whatsapp) return;
   const text = `💐 Blessings for ${CONFIG.groom} & ${CONFIG.bride}\n\n${msg}\n\n— ${name}`;
   window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
-}
-
-// floating design switcher so the couple can compare /1 – /5
-function designSwitcher(current) {
-  if (!CONFIG.showSwitcher) return;
-  const nav = document.createElement("div");
-  nav.setAttribute("style", "position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:999;display:flex;gap:2px;padding:4px;align-items:center;border-radius:999px;background:rgba(20,20,20,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font:500 12px/1 system-ui,sans-serif;letter-spacing:.04em;box-shadow:0 6px 20px rgba(0,0,0,.25)");
-  nav.innerHTML = `<span style="padding:8px 6px 8px 10px;color:#bbb">Design</span>` + [1, 2, 3, 4, 5].map((n) => `<a href="${CORE_BASE}${n}/" style="width:30px;height:30px;display:grid;place-items:center;border-radius:50%;text-decoration:none;color:${n === current ? "#111" : "#eee"};background:${n === current ? "#fff" : "transparent"}">${n}</a>`).join("");
-  document.body.appendChild(nav);
 }
 
 /* =========================================================
