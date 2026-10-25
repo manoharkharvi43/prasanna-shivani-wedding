@@ -401,7 +401,7 @@
     <p class="rv">23 · 12 · 2026 · Kumta</p>
   </footer>
 
-  <script src="../core.js?v=11"></script>
+  <script src="../core.js?v=12"></script>
   <script>
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
     $("#compl").innerHTML = CONFIG.compliments.map((c) => `<p>${esc(c)}</p>`).join("");
@@ -411,6 +411,10 @@
       const m = e.date.match(/(\w+)\s+(\d+),\s*(\d+)/);
       if (!m) return "";
       if (e.main) return calendarUrl();
+      if (e.start) {
+        const st = new Date(e.start), f = (x) => x.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+        return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(`${e.title} — ${CONFIG.groom} & ${CONFIG.bride}`) + "&dates=" + f(st) + "/" + f(new Date(st.getTime() + 3 * 36e5)) + (e.place ? "&location=" + encodeURIComponent(e.place) : "");
+      }
       // date-only event → all-day calendar entry
       const d = new Date(`${m[1]} ${m[2]}, ${m[3]} 12:00`), n = new Date(d.getTime() + 864e5);
       const ymd = (x) => `${x.getFullYear()}${String(x.getMonth() + 1).padStart(2, "0")}${String(x.getDate()).padStart(2, "0")}`;

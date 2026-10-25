@@ -21,7 +21,8 @@ const CONFIG = {
   venueAddress: "Car Street, Kumta, Karnataka",
   mapQuery: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta",  // text Google Maps will search
   whatsapp: "",                               // e.g. "919876543210" — wishes go here; blank = wishes stay on page
-  song: "assets/song.mp3",                    // path from site root; if missing, built-in raga music plays
+  youtube: "5JkkUXeajbM",                     // background song from YouTube (video id); "" to disable
+  song: "assets/song.mp3",                    // used if youtube is "" — path from site root; if missing, built-in raga music plays
   photos: ["assets/couple-photo.jpg", "assets/bride.jpg", "assets/couple.jpg", "assets/groom.jpg"],
   story: [
     { when: "Chapter One", title: "Two Paths", text: "Two souls, two stories, quietly moving toward the same destiny.", icon: "✦" },
@@ -29,10 +30,10 @@ const CONFIG = {
     { when: "Chapter Three", title: "Families Unite", text: "With the blessings of elders, two families became one.", icon: "✿" },
     { when: "23 · 12 · 2026", title: "Forever Begins", text: "And so, our journey begins — with you by our side.", icon: "♥" },
   ],
-  // leave time/place as "" to hide them (Haldi: date only)
+  // leave time/place as "" to hide them; optional start = ISO time for "Add to calendar"
   events: [
-    { icon: "🌼", date: "December 22, 2026 · Tuesday", title: "Haldi Ceremony", desc: "Where traditions shine in shades of yellow and love", dress: "Yellow", time: "", place: "" },
     { icon: "🪔", date: "December 23, 2026 · Wednesday", title: "Wedding Ceremony", desc: "A sacred bond and divine celebration for a lifetime of love", time: "Muhurtham 12:35 PM · Abhijith Lagna", place: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta", main: true },
+    { icon: "✨", date: "December 25, 2026 · Friday", title: "Reception", desc: "Celebrate our new beginning with us, with blessings and a feast", time: "11:00 AM onwards", place: "Shri Nagayakshe Dharmartha Sabhabhavana, N.H. 66, Bhatkal", start: "2026-12-25T11:00:00+05:30" },
   ],
   showSwitcher: true,                         // floating "Design 1 / 2 / 3" pill — set false once a design is chosen
 };
@@ -202,10 +203,48 @@ const Music = {
     tick();
   },
 
+  /* YouTube background song: player is created on page load so playVideo() can run inside the tap */
+  yt: null, ytReady: false, ytWant: false,
+  initYT() {
+    if (!CONFIG.youtube || this.yt !== null) return;
+    this.yt = false;
+    const holder = document.createElement("div");
+    holder.setAttribute("aria-hidden", "true");
+    holder.style.cssText = "position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:.01;pointer-events:none;z-index:-1;overflow:hidden";
+    holder.innerHTML = '<div id="ytSong"></div>';
+    document.body.appendChild(holder);
+    window.onYouTubeIframeAPIReady = () => {
+      this.yt = new YT.Player("ytSong", {
+        width: 2, height: 2, videoId: CONFIG.youtube,
+        playerVars: { autoplay: 0, controls: 0, disablekb: 1, loop: 1, playlist: CONFIG.youtube, playsinline: 1, rel: 0 },
+        events: {
+          onReady: () => { this.ytReady = true; if (this.ytWant) this.playYT(); },
+          onError: () => { this.ytFail(); },
+          onStateChange: (e) => { if (e.data === 0) this.yt.playVideo(); },
+        },
+      });
+    };
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    tag.onerror = () => this.ytFail();
+    document.head.appendChild(tag);
+  },
+  playYT() { try { this.yt.unMute(); this.yt.setVolume(80); this.yt.playVideo(); } catch (e) { this.ytFail(); } },
+  ytFail() {
+    if (this.mode !== "yt") return;
+    this.mode = null; CONFIG.youtube = "";
+    if (this.playing) { this.playing = false; this.start(); }
+  },
+
   start() {
     this.ensureCtx(); // must happen inside the click gesture
     this.playing = true;
     this.setUI();
+    if (CONFIG.youtube) {
+      this.mode = "yt";
+      if (this.ytReady) this.playYT(); else this.ytWant = true;
+      return;
+    }
     const fadeIn = () => {
       if (!this.ctx) return;
       const t = this.ctx.currentTime;
@@ -232,6 +271,7 @@ const Music = {
     this.playing = false;
     this.setUI();
     if (this.mode === "file") this.audio.pause();
+    if (this.mode === "yt") { this.ytWant = false; try { this.yt.pauseVideo(); } catch (e) {} }
     if (this.mode === "synth") {
       clearInterval(this.timer); this.timer = null;
       const t = this.ctx.currentTime;
@@ -244,3 +284,5 @@ const Music = {
   setUI() { $("#musicBtn")?.classList.toggle("playing", this.playing); },
 };
 
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => Music.initYT());
+else Music.initYT();
