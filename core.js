@@ -35,7 +35,7 @@ const CONFIG = {
     { icon: "🪔", date: "December 23, 2026 · Wednesday", title: "Wedding Ceremony", desc: "A sacred bond and divine celebration for a lifetime of love", time: "Muhurtham 12:35 PM · Abhijith Lagna", place: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta", main: true },
     { icon: "✨", date: "December 25, 2026 · Friday", title: "Reception", desc: "Celebrate our new beginning with us, with blessings and a feast", time: "11:00 AM onwards", place: "Shri Nagayakshe Dharmartha Sabhabhavana, N.H. 66, Bhatkal", start: "2026-12-25T11:00:00+05:30" },
   ],
-  showSwitcher: true,                         // floating "Design 1 / 2 / 3" pill — set false once a design is chosen
+  showSwitcher: false,                         // floating "Design 1 / 2 / 3" pill — set false once a design is chosen
 };
 
 /* ===== shared helpers (used by all three designs) ===== */
