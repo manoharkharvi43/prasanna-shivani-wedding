@@ -296,7 +296,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="../core.js?v=10"></script>
+  <script src="../core.js?v=11"></script>
   <script>
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
     const MON = { January: "January", February: "February", March: "March", April: "April", May: "May", June: "June", July: "July", August: "August", September: "September", October: "October", November: "November", December: "December" };
@@ -307,7 +307,7 @@
         <p class="mon">${esc(m[1] ? MON[m[1]] + " · " + m[4] : "Date to be announced")}</p>
         <h3>${esc(e.title)}${e.dress ? `<span class="dress">${esc(e.dress)}</span>` : ""}</h3>
         <p>${esc(e.desc)}</p>
-        <p class="meta">${esc(e.time)} · ${esc(e.place)}<a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Map</a></p>
+        ${e.time || e.place ? `<p class="meta">${[e.time, e.place].filter(Boolean).map(esc).join(" · ")}${e.place ? `<a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Map</a>` : ""}</p>` : ""}
       </article>`;
     }).join("");
     $("#mapBtn").href = mapsLink(CONFIG.mapQuery);

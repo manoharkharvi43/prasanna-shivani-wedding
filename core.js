@@ -29,9 +29,9 @@ const CONFIG = {
     { when: "Chapter Three", title: "Families Unite", text: "With the blessings of elders, two families became one.", icon: "✿" },
     { when: "23 · 12 · 2026", title: "Forever Begins", text: "And so, our journey begins — with you by our side.", icon: "♥" },
   ],
-  // Haldi date/time/venue not on the card yet — replace the "to be announced" text when known
+  // leave time/place as "" to hide them (Haldi: date only)
   events: [
-    { icon: "🌼", date: "Date to be announced", title: "Haldi Ceremony", desc: "Where traditions shine in shades of yellow and love", dress: "Yellow", time: "Time to be announced", place: "Venue to be announced" },
+    { icon: "🌼", date: "December 22, 2026 · Tuesday", title: "Haldi Ceremony", desc: "Where traditions shine in shades of yellow and love", dress: "Yellow", time: "", place: "" },
     { icon: "🪔", date: "December 23, 2026 · Wednesday", title: "Wedding Ceremony", desc: "A sacred bond and divine celebration for a lifetime of love", time: "Muhurtham 12:35 PM · Abhijith Lagna", place: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta", main: true },
   ],
   showSwitcher: true,                         // floating "Design 1 / 2 / 3" pill — set false once a design is chosen

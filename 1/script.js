@@ -20,10 +20,10 @@ function render() {
       <p class="ev-desc">${esc(e.desc)}</p>
       ${e.dress ? `<span class="ev-dress">Dress code · ${esc(e.dress)}</span>` : ""}
       <div class="ev-meta">
-        <p>🕒 ${esc(e.time)}</p>
-        <p>📍 ${esc(e.place)}</p>
+        ${e.time ? `<p>🕒 ${esc(e.time)}</p>` : ""}
+        ${e.place ? `<p>📍 ${esc(e.place)}</p>` : ""}
       </div>
-      <a class="btn ${e.main ? "gold" : "ghost"}" href="${mapsLink(e.place)}" target="_blank" rel="noopener">Directions 🗺️</a>
+      ${e.place ? `<a class="btn ${e.main ? "gold" : "ghost"}" href="${mapsLink(e.place)}" target="_blank" rel="noopener">Directions 🗺️</a>` : ""}
     </article>`).join("");
   $("#mapBtn").href = mapsLink(CONFIG.mapQuery);
   $("#mapFrame").src = "https://maps.google.com/maps?q=" + encodeURIComponent(CONFIG.mapQuery) + "&z=14&output=embed";

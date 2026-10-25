@@ -330,7 +330,7 @@
     </footer>
   </main>
 
-  <script src="../core.js?v=10"></script>
+  <script src="../core.js?v=11"></script>
   <script>
     /* ---------- rangoli (generated, draws itself) ---------- */
     (() => {
@@ -388,7 +388,7 @@
           <h3>${esc(e.title)}</h3>
           <p>${esc(e.desc)}</p>
           ${e.dress ? `<span class="dress">Dress code · ${esc(e.dress)}</span>` : ""}
-          <p class="meta">🕒 ${esc(e.time)} &nbsp; 📍 ${esc(e.place)}<a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Map</a></p>
+          ${e.time || e.place ? `<p class="meta">${e.time ? `🕒 ${esc(e.time)} &nbsp; ` : ""}${e.place ? `📍 ${esc(e.place)}<a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Map</a>` : ""}</p>` : ""}
         </div>
       </div>`).join("");
     $("#mapBtn").href = mapsLink(CONFIG.mapQuery);

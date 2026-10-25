@@ -275,7 +275,7 @@
       <div class="wrap">
         <div class="ev-head">
           <h2 class="rv">The <em>celebrations</em></h2>
-          <p class="label rv d1">December 21 — 23, 2026</p>
+          <p class="label rv d1">December 22 — 23, 2026</p>
         </div>
         <div id="eventList"></div>
       </div>
@@ -328,7 +328,7 @@
     </footer>
   </main>
 
-  <script src="../core.js?v=10"></script>
+  <script src="../core.js?v=11"></script>
   <script>
     // fill from CONFIG
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
@@ -338,7 +338,7 @@
       return `<article class="ev rv${e.main ? " main" : ""}">
         <div class="ev-date"><b>${esc(m[2] || "—")}</b><span class="label">${esc(m[1] ? months[m[1]] + " · " + m[3] : "Date to be announced")}</span></div>
         <div><h3>${esc(e.title)}${e.dress ? `<small>${esc(e.dress)}</small>` : ""}</h3><p>${esc(e.desc)}</p></div>
-        <div class="ev-meta">${esc(e.time)}<br />${esc(e.place)}<br /><a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Directions</a></div>
+        <div class="ev-meta">${[e.time, e.place].filter(Boolean).map(esc).join("<br />")}${e.place ? `<br /><a href="${mapsLink(e.place)}" target="_blank" rel="noopener">Directions</a>` : ""}</div>
       </article>`;
     }).join("");
     $("#mapBtn").href = mapsLink(CONFIG.mapQuery);
