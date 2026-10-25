@@ -153,12 +153,20 @@
     .weds::before, .weds::after { content: ""; display: block; width: 1px; height: 60px; margin: 12px auto; background: linear-gradient(transparent, var(--gold), transparent); }
 
     /* ============ INTERLUDE ============ */
-    .interlude { height: 80vh; min-height: 480px; padding: 0; overflow: hidden; display: grid; place-items: center; text-align: center; }
-    .interlude .bg { position: absolute; inset: -12% 0; background: url("../assets/couple.jpg") center / cover; will-change: transform; }
-    .interlude::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(12,13,18,.45), rgba(12,13,18,.9)); }
-    .interlude .q { position: relative; z-index: 1; padding: 0 24px; }
-    .interlude .q .script { font-size: clamp(50px, 9vw, 92px); line-height: 1.05; color: var(--gold-2); text-shadow: 0 4px 30px rgba(0,0,0,.5); }
-    .interlude .q p { margin-top: 14px; letter-spacing: .3em; font-size: 12px; text-transform: uppercase; color: var(--gold); }
+    .interlude { overflow: hidden; }
+    .interlude::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(214,190,140,.10), transparent 60%); pointer-events: none; }
+    .il-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(40px, 7vw, 90px); align-items: center; }
+    .il-frame { position: relative; width: min(380px, 100%); justify-self: center; }
+    .il-frame::before { content: ""; position: absolute; inset: -14px; border: 1px solid var(--line); border-radius: 220px 220px 20px 20px; }
+    .il-frame::after { content: ""; position: absolute; inset: 10% -10% -6% -10%; background: radial-gradient(ellipse, rgba(214,190,140,.22), transparent 70%); filter: blur(30px); z-index: -1; }
+    .il-img { position: relative; aspect-ratio: 3/4; border-radius: 200px 200px 14px 14px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,.55); }
+    .il-img img { width: 100%; height: 118%; object-fit: cover; object-position: center 70%; will-change: transform; }
+    .il-text { text-align: left; }
+    .il-text .quote { font-family: var(--script); font-weight: 400; font-size: clamp(52px, 7vw, 84px); line-height: 1.05; color: var(--gold-2); text-transform: none; letter-spacing: 0; }
+    .il-text .quote em { font-style: normal; color: var(--gold); }
+    .il-text .line { width: 80px; height: 1px; margin: 26px 0 18px; background: linear-gradient(90deg, var(--gold), transparent); }
+    .il-text .sub { font-family: var(--display); font-style: italic; font-size: 18px; color: var(--muted); max-width: 420px; }
+    .il-text .tag { margin-top: 18px; }
 
     /* ============ EVENTS ============ */
     .events { display: grid; gap: 28px; max-width: 760px; margin: 50px auto 0; }
@@ -229,6 +237,11 @@
 
     @media (max-width: 760px) {
       .couple { grid-template-columns: 1fr; gap: 10px; max-width: 340px; }
+      .il-grid { grid-template-columns: 1fr; gap: 50px; }
+      .il-frame { width: min(280px, 76vw); }
+      .il-text { text-align: center; }
+      .il-text .line { margin: 22px auto 16px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+      .il-text .sub { margin: 0 auto; }
       .weds::before, .weds::after { height: 34px; }
       .ev-body { grid-template-columns: 1fr; gap: 18px; }
       .ev-date { border-right: 0; padding-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
@@ -319,10 +332,14 @@
 
     <!-- interlude -->
     <section class="interlude">
-      <div class="bg" id="ilBg"></div>
-      <div class="q">
-        <p class="script rv">Two hearts,<br />one beautiful forever</p>
-        <p class="rv d1">Shubha Vivaha</p>
+      <div class="wrap il-grid">
+        <div class="il-frame rv"><div class="il-img"><img id="ilImg" src="../assets/couple.jpg" alt="Illustrated portrait of Prasanna and Shivani" loading="lazy" /></div></div>
+        <div class="il-text">
+          <p class="quote rv d1">Two hearts,<br /><em>one</em> beautiful<br />forever</p>
+          <div class="line rv d2"></div>
+          <p class="sub rv d2">Bound by tradition, blessed by our elders, and celebrated with the people we love most.</p>
+          <p class="eyebrow tag rv d3">Shubha Vivaha · 23 · 12 · 2026</p>
+        </div>
       </div>
     </section>
 
@@ -519,11 +536,11 @@
     });
 
     /* scroll: bar + interlude parallax */
-    const il = $("#ilBg"), ilSec = il.parentElement;
+    const il = $("#ilImg"), ilSec = $(".interlude");
     addEventListener("scroll", () => {
       $("#bar").classList.toggle("solid", scrollY > 40);
       const r = ilSec.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < innerHeight) il.style.transform = `translateY(${(r.top / innerHeight) * -60}px)`;
+      if (r.bottom > 0 && r.top < innerHeight) il.style.transform = `translateY(${(r.top / innerHeight) * -40 - 20}px)`;
     }, { passive: true });
 
     $("#wishForm").addEventListener("submit", (e) => {
