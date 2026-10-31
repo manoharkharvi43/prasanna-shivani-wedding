@@ -147,8 +147,9 @@
     .person.in .portrait { clip-path: inset(0 0 0 0 round 200px 200px 16px 16px); }
     .portrait img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); transition: transform 2.4s cubic-bezier(.2,.7,.2,1); }
     .person.in .portrait img { transform: scale(1); }
-    .person .outline { position: absolute; inset: 0; border: 1px solid var(--gold); border-radius: 200px 200px 16px 16px; transform: translate(14px, 14px); opacity: 0; transition: opacity 1s ease .8s, transform 1.2s ease .8s; pointer-events: none; }
-    .person.in .outline { opacity: .7; transform: translate(10px, 10px); }
+    .pframe { position: relative; }
+    .person .outline { position: absolute; inset: -11px; border: 1px solid var(--gold); border-radius: 211px 211px 26px 26px; opacity: 0; transform: scale(.97); transition: opacity 1s ease .8s, transform 1.2s ease .8s; pointer-events: none; }
+    .person.in .outline { opacity: .75; transform: none; }
     /* frame face + upper body */
     .person.groom .portrait img { object-position: 50% 0%; transform-origin: 51% 0%; transform: scale(1.6); }
     .person.groom.in .portrait img { transform: scale(1.42); }
@@ -297,8 +298,10 @@
 
         <div class="couple">
           <div class="person groom">
-            <div class="outline"></div>
-            <div class="portrait"><img src="../assets/groom-dhoti.jpg" alt="Prasanna" /></div>
+            <div class="pframe">
+              <div class="outline"></div>
+              <div class="portrait"><img src="../assets/groom-dhoti.jpg" alt="Prasanna" /></div>
+            </div>
             <div class="plaque">
               <p class="t" data-cfg="groomTitle"></p>
               <h3>Prasanna</h3>
@@ -307,8 +310,10 @@
           </div>
           <p class="script weds rv">weds</p>
           <div class="person bride">
-            <div class="outline"></div>
-            <div class="portrait"><img src="../assets/bride-saree.jpg" alt="Shivani" /></div>
+            <div class="pframe">
+              <div class="outline"></div>
+              <div class="portrait"><img src="../assets/bride-saree.jpg" alt="Shivani" /></div>
+            </div>
             <div class="plaque">
               <p class="t" data-cfg="brideTitle"></p>
               <h3>Shivani</h3>
