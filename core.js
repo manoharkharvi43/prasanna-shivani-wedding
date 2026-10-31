@@ -16,14 +16,15 @@ const CONFIG = {
   brideParents: "Smt. Radhika & Shri Ashok Yashvanth Prabhu",
   brideFamily: "Chitragi, Kumta",
   brideRelation: "Daughter of",
-  compliments: ["Smt. Chaitra & Shri Prateek Shanbhag & Master Prathap, Bangalore", "Shanbhag & Kamath Family", "Relatives & Friends"],
+  compliments: ["Shanbhag & Prabhu Family"],
   venueName: "Shree Shanteri Kamakshi Sabhagraha",
   venueAddress: "Car Street, Kumta, Karnataka",
   mapQuery: "Shree Shanteri Kamakshi Sabhagraha, Car Street, Kumta",  // text Google Maps will search
   whatsapp: "",                               // e.g. "919876543210" — wishes go here; blank = wishes stay on page
   youtube: "QrRh_bqfZco",                     // background song from YouTube (video id); "" to disable
+  youtubeStart: 3.5,                          // seconds to skip at the start (silent intro)
   song: "assets/song.mp3",                    // used if youtube is "" — path from site root; if missing, built-in raga music plays
-  photos: ["assets/couple-photo.jpg", "assets/bride.jpg", "assets/couple.jpg", "assets/groom.jpg"],
+  photos: ["assets/couple-photo.jpg", "assets/bride-saree.jpg", "assets/couple.jpg", "assets/groom-dhoti.jpg"],
   story: [
     { when: "Chapter One", title: "Two Paths", text: "Two souls, two stories, quietly moving toward the same destiny.", icon: "✦" },
     { when: "Chapter Two", title: "The First Hello", text: "A simple conversation that turned into a thousand more.", icon: "❀" },
@@ -206,11 +207,11 @@ const Music = {
     window.onYouTubeIframeAPIReady = () => {
       this.yt = new YT.Player("ytSong", {
         width: 2, height: 2, videoId: CONFIG.youtube,
-        playerVars: { autoplay: 0, controls: 0, disablekb: 1, loop: 1, playlist: CONFIG.youtube, playsinline: 1, rel: 0 },
+        playerVars: { autoplay: 0, controls: 0, disablekb: 1, playsinline: 1, rel: 0, start: Math.floor(CONFIG.youtubeStart || 0) },
         events: {
           onReady: () => { this.ytReady = true; if (this.ytWant) this.playYT(); },
           onError: () => { this.ytFail(); },
-          onStateChange: (e) => { if (e.data === 0) this.yt.playVideo(); },
+          onStateChange: (e) => { if (e.data === 0) { this.yt.seekTo(CONFIG.youtubeStart || 0, true); this.yt.playVideo(); } }, // loop, skipping the silent intro
         },
       });
     };
@@ -219,7 +220,13 @@ const Music = {
     tag.onerror = () => this.ytFail();
     document.head.appendChild(tag);
   },
-  playYT() { try { this.yt.unMute(); this.yt.setVolume(80); this.yt.playVideo(); } catch (e) { this.ytFail(); } },
+  playYT() {
+    try {
+      this.yt.unMute(); this.yt.setVolume(80);
+      if (!this.ytStarted) { this.ytStarted = true; this.yt.seekTo(CONFIG.youtubeStart || 0, true); }
+      this.yt.playVideo();
+    } catch (e) { this.ytFail(); }
+  },
   ytFail() {
     if (this.mode !== "yt") return;
     this.mode = null; CONFIG.youtube = "";

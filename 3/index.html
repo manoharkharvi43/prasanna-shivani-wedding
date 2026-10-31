@@ -149,8 +149,11 @@
     .person.in .portrait img { transform: scale(1); }
     .person .outline { position: absolute; inset: 0; border: 1px solid var(--gold); border-radius: 200px 200px 16px 16px; transform: translate(14px, 14px); opacity: 0; transition: opacity 1s ease .8s, transform 1.2s ease .8s; pointer-events: none; }
     .person.in .outline { opacity: .7; transform: translate(10px, 10px); }
-    .person.groom .portrait img { object-position: 52% 22%; }
-    .person.bride .portrait img { object-position: 50% 100%; }
+    /* frame face + upper body */
+    .person.groom .portrait img { object-position: 50% 0%; transform-origin: 51% 0%; transform: scale(1.6); }
+    .person.groom.in .portrait img { transform: scale(1.42); }
+    .person.bride .portrait img { object-position: 45% 40%; transform-origin: 45% 32%; transform: scale(1.4); }
+    .person.bride.in .portrait img { transform: scale(1.2); }
     .plaque { position: relative; margin: -46px 14px 0; padding: 18px 16px 16px; text-align: center; border: 1px solid var(--line); border-radius: 14px; background: rgba(18,20,27,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; transform: translateY(24px); transition: opacity 1s ease 1s, transform 1s ease 1s; }
     .person.in .plaque { opacity: 1; transform: none; }
     .plaque .t { font-family: var(--script); color: var(--gold); font-size: 22px; line-height: 1; }
@@ -290,12 +293,12 @@
         <p class="invocation rv">॥ <span data-cfg="invocation"></span> ॥</p>
         <p class="script joy rv d1">With joyful hearts</p>
         <p class="joy-sub rv d2">we request the pleasure of your company</p>
-        <p class="invite-text rv d3"><b data-cfg="groomParents"></b> solicit your blessings and warmly invite you, with family &amp; friends, to the auspicious wedding of their second son.</p>
+        <p class="invite-text rv d3">With the blessings of the Almighty and our elders, the <b>Shanbhag</b> and <b>Prabhu</b> families joyfully invite you, along with your family &amp; friends, to celebrate the auspicious wedding of our beloved children. Your presence and blessings will make this day truly special.</p>
 
         <div class="couple">
           <div class="person groom">
             <div class="outline"></div>
-            <div class="portrait"><img src="../assets/groom.jpg" alt="Prasanna" /></div>
+            <div class="portrait"><img src="../assets/groom-dhoti.jpg" alt="Prasanna" /></div>
             <div class="plaque">
               <p class="t" data-cfg="groomTitle"></p>
               <h3>Prasanna</h3>
@@ -305,7 +308,7 @@
           <p class="script weds rv">weds</p>
           <div class="person bride">
             <div class="outline"></div>
-            <div class="portrait"><img src="../assets/bride.jpg" alt="Shivani" /></div>
+            <div class="portrait"><img src="../assets/bride-saree.jpg" alt="Shivani" /></div>
             <div class="plaque">
               <p class="t" data-cfg="brideTitle"></p>
               <h3>Shivani</h3>
@@ -377,7 +380,7 @@
     <p class="rv">23 · 12 · 2026 · Kumta</p>
   </footer>
 
-  <script src="../core.js?v=14"></script>
+  <script src="../core.js?v=15"></script>
   <script>
     $$("[data-cfg]").forEach((el) => (el.textContent = CONFIG[el.dataset.cfg] || ""));
     $("#compl").innerHTML = CONFIG.compliments.map((c) => `<p>${esc(c)}</p>`).join("");
