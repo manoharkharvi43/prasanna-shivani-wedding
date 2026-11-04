@@ -209,9 +209,19 @@ const Music = {
         width: 2, height: 2, videoId: CONFIG.youtube,
         playerVars: { autoplay: 0, controls: 0, disablekb: 1, playsinline: 1, rel: 0, start: Math.floor(CONFIG.youtubeStart || 0) },
         events: {
-          onReady: () => { this.ytReady = true; if (this.ytWant) this.playYT(); },
+          onReady: () => { this.ytReady = true; if (this.ytWant) this.playYT(); else this.preloadYT(); },
           onError: () => { this.ytFail(); },
-          onStateChange: (e) => { if (e.data === 0) { this.yt.seekTo(CONFIG.youtubeStart || 0, true); this.yt.playVideo(); } }, // loop, skipping the silent intro
+          onStateChange: (e) => {
+            if (this.ytPreloading && e.data === 1) { // buffered: park silently on the first note
+              setTimeout(() => {
+                if (!this.ytPreloading) return;
+                this.ytPreloading = false;
+                this.yt.pauseVideo(); this.yt.seekTo(CONFIG.youtubeStart || 0, true);
+                this.ytParked = true;
+              }, 300);
+            }
+            if (e.data === 0) { this.yt.seekTo(CONFIG.youtubeStart || 0, true); this.yt.playVideo(); } // loop, skipping the silent intro
+          },
         },
       });
     };
@@ -220,11 +230,20 @@ const Music = {
     tag.onerror = () => this.ytFail();
     document.head.appendChild(tag);
   },
+  // silent pre-buffer while the cover shows, so the tap starts the song instantly
+  preloadYT() {
+    try { this.ytPreloading = true; this.yt.mute(); this.yt.seekTo(CONFIG.youtubeStart || 0, true); this.yt.playVideo(); }
+    catch (e) { this.ytPreloading = false; }
+  },
   playYT() {
     try {
+      const parked = this.ytParked;
+      this.ytPreloading = false; this.ytParked = false;
       this.yt.unMute(); this.yt.setVolume(80);
-      if (!this.ytStarted) { this.ytStarted = true; this.yt.seekTo(CONFIG.youtubeStart || 0, true); }
+      if (!this.ytStarted) { this.ytStarted = true; if (!parked) this.yt.seekTo(CONFIG.youtubeStart || 0, true); }
       this.yt.playVideo();
+      // some browsers ignore the first unmute/play: retry once
+      setTimeout(() => { if (this.playing && this.mode === "yt" && this.yt.isMuted()) { this.yt.unMute(); this.yt.playVideo(); } }, 500);
     } catch (e) { this.ytFail(); }
   },
   ytFail() {
